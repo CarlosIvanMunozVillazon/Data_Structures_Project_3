@@ -1,15 +1,14 @@
 "use client"
-import Button from '@mui/material/Button'
-import Image from 'next/image'
+import { Navbar } from './components/Navbar'
+import { Container } from '@mui/material'
 
 
 export default function Home() {
   return (
     <main>
-      <Button variant = "contained">Hello world</Button>
-      <br />
-      <br />
-      <Button variant = "contained">Hello world 2</Button>
+      <Navbar></Navbar>
+      <Container sx = {{mt:9}} maxWidth = "xl">
+      </Container>
     </main>
   )
 }

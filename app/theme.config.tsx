@@ -7,8 +7,9 @@ type ThemeProp = {
 }
 
 export enum themePalette {
-    BACKGROUND="#e3f2fd",
-    BUTTON = "#000000",
+    BACKGROUND="#FFFFFF",
+    BLUE_1 = "#0D47A1",
+    BLACK = "#000000",
     GLOBAL_TYPOGRAPHY = "'Lato'"
 }
 
@@ -19,7 +20,7 @@ const theme = createTheme ({
             default: themePalette.BACKGROUND
         },
         primary : { // para otros componentes
-            main : themePalette.BUTTON
+            main : themePalette.BLUE_1
         }
     },
     typography : {
@@ -35,13 +36,20 @@ const theme = createTheme ({
                     
                 }
             }
+        },
+        MuiAppBar : {
+            defaultProps : {
+                style:{
+                    backgroundColor:themePalette.BLACK
+                }
+            }
         }
     }
 });
 
 export const ThemeConfig: React.FC <ThemeProp> = ({ children }) => {
     return <ThemeProvider theme={theme}>
-        <CssBaseline></CssBaseline>
+        <CssBaseline/>
         {children}
     </ThemeProvider>
 };
