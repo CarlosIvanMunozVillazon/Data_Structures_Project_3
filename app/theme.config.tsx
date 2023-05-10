@@ -8,8 +8,9 @@ type ThemeProp = {
 
 export enum themePalette {
     BACKGROUND="#FFFFFF",
-    BLUE_1 = "#0D47A1",
+    BLUE_1 = "#0000FF",
     BLACK = "#000000",
+    GRAY = "#212121",
     GLOBAL_TYPOGRAPHY = "'Lato'"
 }
 
@@ -40,7 +41,7 @@ const theme = createTheme ({
         MuiAppBar : {
             defaultProps : {
                 style:{
-                    backgroundColor:themePalette.BLACK
+                    backgroundColor:themePalette.GRAY
                 }
             }
         }
