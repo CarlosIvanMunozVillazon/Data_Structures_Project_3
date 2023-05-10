@@ -9,7 +9,7 @@ type LoginInformation = {
   password: string
 }
 
-export default function Home() {
+export default function Login() {
 
   //Valores para el atributo direction:
   //"row" : los elementos se organizan en una sola fila, uno al lado del otro.
@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container component = "main" maxWidth="xl">
         <Grid
           container
           direction="column"
