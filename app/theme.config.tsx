@@ -9,6 +9,7 @@ type ThemeProp = {
 export enum themePalette {
     BACKGROUND="#FFFFFF",
     BLUE_1 = "#0000FF",
+    BLUE_2 = "#1A237E",
     BLACK = "#000000",
     GRAY = "#212121",
     GLOBAL_TYPOGRAPHY = "'Lato'"
@@ -21,7 +22,7 @@ const theme = createTheme ({
             default: themePalette.BACKGROUND
         },
         primary : { // para otros componentes
-            main : themePalette.BLUE_1
+            main : themePalette.BLUE_2
         }
     },
     typography : {

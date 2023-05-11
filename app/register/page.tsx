@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
+import Link from 'next/link'
 
 
 type NewUser = {
@@ -101,6 +102,10 @@ export default function Register() {
                                     />
 
                                     <Button fullWidth type="submit" variant="contained">Register</Button>
+
+                                    <Link href="/login">
+                                        <Typography sx = {{color:"blue"}}>Already have an account?</Typography>
+                                    </Link>
                                 </Stack>
                             </Box>
                         </Paper>

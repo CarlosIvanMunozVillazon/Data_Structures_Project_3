@@ -29,7 +29,7 @@ export const Navbar: React.FC<{}> = () => {
                                     <Button variant="contained" >
                                         Log In
                                     </Button>
-                                    <Button variant="outlined">Register</Button>
+                                    <Button variant="contained">Register</Button>
                                 </Stack>
                             </Grid>
                         </Grid>

@@ -3,6 +3,7 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import { Button, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
+import Link from 'next/link'
 
 type LoginInformation = {
   email: string,
@@ -60,7 +61,7 @@ export default function Login() {
 
   return (
     <>
-      <Container component = "main" maxWidth="xl">
+      <Container component="main" maxWidth="xl">
         <Grid
           container
           direction="column"
@@ -90,6 +91,10 @@ export default function Login() {
                     onChange={loginData}
                   />
                   <Button fullWidth type="submit" variant="contained">Log-in</Button>
+
+                  <Link href="/register">
+                    <Typography sx={{ color: "blue" }}>Sign Up</Typography>
+                  </Link>
                 </Stack>
               </Box>
             </Paper>

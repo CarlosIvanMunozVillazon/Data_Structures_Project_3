@@ -1,19 +1,50 @@
 "use client"
-import { Navbar } from './components/Navbar'
-import { Container } from '@mui/material'
-import Box from '@mui/material/Box'
+
+import { Button, Container, Grid, Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
+import Image from "next/image"
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main>
-      <Navbar></Navbar>
-      <Container sx={{ mt: 9 }} maxWidth="xl">
-        <Box display="flex" flexDirection="column" maxWidth="xl" alignItems="center">
-          <Typography variant="h1" >Main application page</Typography>
-        </Box>
-        <Typography variant = "body1">This is my main application page, enjoy it.</Typography>
+    <>
+      <Container component="main" maxWidth="lg" >
+
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="center"
+          direction="column"
+          sx={{ minHeight: "90vh" }}
+          spacing={5}
+        >
+          <Grid item>
+            <Image
+              className="border-slate pb-8"
+              src="/images/AppLogo.png"
+              width={300}
+              height={300}
+              alt="AppLogo"
+              priority={true} />
+          </Grid>
+
+          <Grid item>
+            <Typography variant='h1'>Welcome to SharpSight</Typography>
+          </Grid>
+
+          <Grid item >
+            <Typography variant="h4" fontWeight="light">A web application for price comparison</Typography>
+          </Grid>
+
+          <Grid item >
+            <Link href="/register">
+              <Button variant="contained" type="button">Get Started</Button>
+            </Link>
+          </Grid>
+
+        </Grid>
+
       </Container>
-    </main>
+    </>
   )
 }
