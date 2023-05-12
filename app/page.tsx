@@ -1,11 +1,22 @@
 "use client"
 
-import { Button, Container, Grid, Stack } from '@mui/material'
+import { Button, Container, Grid } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Image from "next/image"
 import Link from 'next/link'
+import {useNotification } from './context/notification.context'
+
+
 
 export default function Home() {
+
+  const { getError } = useNotification();
+
+  const handleClick = () => {
+    getError('Hello niggers')
+  }
+
+
   return (
     <>
       <Container component="main" maxWidth="lg" >
@@ -42,6 +53,10 @@ export default function Home() {
             </Link>
           </Grid>
 
+          <Grid item>
+            <Button variant='contained' type="button" onClick={handleClick}>Notification Test</Button>
+
+          </Grid>
         </Grid>
 
       </Container>

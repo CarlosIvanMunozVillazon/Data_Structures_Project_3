@@ -12,6 +12,11 @@ export enum themePalette {
     BLUE_2 = "#1A237E",
     BLACK = "#000000",
     GRAY = "#212121",
+    
+    //Alert Colors:
+    RED_1 = "#FF0033",
+    PURPLE_1 = "#4A148C",
+
     GLOBAL_TYPOGRAPHY = "'Lato'"
 }
 
@@ -43,6 +48,20 @@ const theme = createTheme ({
             defaultProps : {
                 style:{
                     backgroundColor:themePalette.GRAY
+                }
+            }
+        },
+        MuiAlert : { //There are different alert components, which we can customize
+            defaultProps : {
+                style : {
+                    borderRadius : "0.8em",
+                    fontSize : "1 em"
+                }
+            },
+            styleOverrides : { //Allows pointing to specific component type "errors"
+                standardError : { 
+                    border : `1px solid ${themePalette.RED_1}`,
+                    background : themePalette.PURPLE_1
                 }
             }
         }

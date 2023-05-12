@@ -1,9 +1,8 @@
+import { ThemeConfig } from "./theme.config"
+import { NotificationProvider } from "./context/notification.context"
+// const inter = Inter({ subsets: ['latin'] })
 // import './globals.css'
 // import { Inter } from 'next/font/google'
-
-import { ThemeConfig } from "./theme.config"
-
-// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'DataStructures',
@@ -11,13 +10,16 @@ export const metadata = {
 }
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
+
   return (
     <html lang="en">
-      <ThemeConfig>
-        <body >
-          {children}
-        </body>
-      </ThemeConfig>
+      <NotificationProvider>
+        <ThemeConfig>
+          <body >
+            {children}
+          </body>
+        </ThemeConfig>
+      </NotificationProvider>
     </html>
   )
 }
