@@ -4,6 +4,8 @@ import Box from '@mui/material/Box'
 import { Button, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import Link from 'next/link'
+import { useNotification } from '@/app/context/notification.context'
+import { LoginValidation } from '@/app/helpers/validateForm'
 
 type LoginInformation = {
   email: string,
@@ -53,9 +55,23 @@ export default function Login() {
 
   //los nombres tiene que ser iguales al del tipo que se estableció arriba "LoginInformation"
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const { getError, getSuccess } = useNotification();
+
+
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => { //aqui validamos con yup
     e.preventDefault();
-    console.log(logIn);
+
+    LoginValidation.validate(logIn).then(() => {
+
+      getSuccess(JSON.stringify(logIn)) //para que la notificacion imprima el objeto
+
+    }
+    ).catch((error) => {
+
+      getError(error.message) //por si tenemos datos no validos
+    }
+    )
+
   }
 
 
@@ -72,27 +88,25 @@ export default function Login() {
           }}
         >
           <Grid item>
-            <Paper sx={{ padding: "1.2em", borderRadius: "0.5em" }}>
+            <Paper>
               <Box component="form" onSubmit={handleSubmit}>
                 <Stack spacing={2}>
                   <Typography variant="h4">Log-in</Typography>
                   <TextField fullWidth
                     name="email"
                     label="E-mail"
-                    type="e-mail"
-                    required
+                    type="text"
                     onChange={loginData}
                   />
                   <TextField fullWidth
                     name="password"
                     label="Password"
                     type="password"
-                    required
                     onChange={loginData}
                   />
                   <Button fullWidth type="submit" variant="contained">Log-in</Button>
 
-                  <Link href="/register">
+                  <Link href="/pages/register">
                     <Typography sx={{ color: "blue" }}>Sign Up</Typography>
                   </Link>
                 </Stack>

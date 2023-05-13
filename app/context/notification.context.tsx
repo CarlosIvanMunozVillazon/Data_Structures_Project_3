@@ -5,21 +5,16 @@ import { AlertColor } from '@mui/material';
 
 type ContextProperties = {
     getError: (msg: string) => void,
+    getSuccess: (msg: string) => void
 }
 
-const defaultContext: ContextProperties = {
-    getError: (msg: string) => {
-      console.log(`error xd ${msg}`);
-    },
- };
-  
 
-export const NotificationContext = React.createContext<ContextProperties>(defaultContext);
+export const NotificationContext = React.createContext<ContextProperties | null>(null);
 
 
-export const NotificationProvider: React.FC<{children: JSX.Element}> = ({children}) => {
+export const NotificationProvider: React.FC<{ children: JSX.Element }> = ({ children }) => {
 
-    
+
     //Con estos tres modificamos los estados del tipo de componente Notification.
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState('');
@@ -36,8 +31,18 @@ export const NotificationProvider: React.FC<{children: JSX.Element}> = ({childre
 
     }
 
+    const getSuccess = (msg: string) => {
+
+        setSeverity("success");
+        setOpen(true);
+        setMessage(msg);
+
+    }
+
+
     const value = {
-        getError
+        getError,
+        getSuccess,
     }
 
     //.provider es una propiedad del creador de context de react. Lo que estamos creando es un proveedor.
@@ -54,5 +59,6 @@ export const NotificationProvider: React.FC<{children: JSX.Element}> = ({childre
 
 export const useNotification = () => {
     const context = React.useContext(NotificationContext);
+    if (!context) throw Error('no context found')
     return context
 }

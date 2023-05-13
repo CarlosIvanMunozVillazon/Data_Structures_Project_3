@@ -3,6 +3,8 @@
 import React from 'react'
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
+import { useNotification } from '@/app/context/notification.context'
+import { RegisterValidation } from '@/app/helpers/validateForm'
 
 
 type NewUser = {
@@ -15,6 +17,8 @@ type NewUser = {
 
 
 export default function Register() {
+
+    const { getError, getSuccess } = useNotification();
 
     const [newUser, setNewUser] = React.useState<NewUser>(
         {
@@ -36,7 +40,18 @@ export default function Register() {
 
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
-        console.log({ ...newUser });
+
+        RegisterValidation.validate(newUser).then(() => {
+
+            getSuccess(JSON.stringify(newUser))
+        
+        }). catch ((error) => {
+        
+            getError(error.message)
+        
+        })
+
+
     };
 
     return (
@@ -49,7 +64,7 @@ export default function Register() {
                     sx={{ minHeight: "100vh" }}
                 >
                     <Grid item>
-                        <Paper sx={{ padding: "1.2em", borderRadius: "0.5em" }}>
+                        <Paper>
                             <Box component="form" onSubmit={handleSubmit}>
 
                                 <Stack spacing={2}>
@@ -63,7 +78,6 @@ export default function Register() {
                                             name="userName"
                                             type="text"
                                             label="Name"
-                                            required
                                             onChange={newUserData}
                                         />
 
@@ -71,7 +85,6 @@ export default function Register() {
                                             name="lastName"
                                             type="text"
                                             label="Last Name"
-                                            required
                                             onChange={newUserData}
                                         />
                                     </Stack>
@@ -81,7 +94,6 @@ export default function Register() {
                                         name="email"
                                         type="text"
                                         label="Email"
-                                        required
                                         onChange={newUserData}
                                     />
 
@@ -89,7 +101,6 @@ export default function Register() {
                                         name="password"
                                         type="password"
                                         label="Password"
-                                        required
                                         onChange={newUserData}
                                     />
 
@@ -97,14 +108,13 @@ export default function Register() {
                                         name="confirmPassword"
                                         type="password"
                                         label="Confirm Password"
-                                        required
                                         onChange={newUserData}
                                     />
 
                                     <Button fullWidth type="submit" variant="contained">Register</Button>
 
-                                    <Link href="/login">
-                                        <Typography sx = {{color:"blue"}}>Already have an account?</Typography>
+                                    <Link href="/pages/login">
+                                        <Typography sx={{ color: "blue" }}>Already have an account?</Typography>
                                     </Link>
                                 </Stack>
                             </Box>

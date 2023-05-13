@@ -11,11 +11,13 @@ export enum themePalette {
     BLUE_1 = "#0000FF",
     BLUE_2 = "#1A237E",
     BLACK = "#000000",
-    GRAY = "#212121",
+    GRAY_1 = "#212121",
     
     //Alert Colors:
     RED_1 = "#FF0033",
     PURPLE_1 = "#4A148C",
+    GRAY_2 = "#E5E7E9",
+    GREEN_1 = "#33FF00",
 
     GLOBAL_TYPOGRAPHY = "'Lato'"
 }
@@ -47,7 +49,7 @@ const theme = createTheme ({
         MuiAppBar : {
             defaultProps : {
                 style:{
-                    backgroundColor:themePalette.GRAY
+                    backgroundColor:themePalette.GRAY_1
                 }
             }
         },
@@ -61,7 +63,19 @@ const theme = createTheme ({
             styleOverrides : { //Allows pointing to specific component type "errors"
                 standardError : { 
                     border : `1px solid ${themePalette.RED_1}`,
-                    background : themePalette.PURPLE_1
+                    background : themePalette.GRAY_2
+                } ,
+                standardSuccess : {
+                    border : `1px solid ${themePalette.GREEN_1}`,
+                    background : themePalette.GRAY_2
+                }
+            }
+        },
+        MuiPaper : {
+            defaultProps : {
+                style : {
+                    padding : "1.2em",
+                    borderRadius: "0.5em" 
                 }
             }
         }

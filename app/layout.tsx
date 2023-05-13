@@ -1,4 +1,4 @@
-import { ThemeConfig } from "./theme.config"
+import { ThemeConfig } from "./config/theme.config"
 import { NotificationProvider } from "./context/notification.context"
 // const inter = Inter({ subsets: ['latin'] })
 // import './globals.css'
@@ -13,13 +13,13 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 
   return (
     <html lang="en">
-      <NotificationProvider>
-        <ThemeConfig>
-          <body >
+      <ThemeConfig>
+        <NotificationProvider>
+          <body>
             {children}
           </body>
-        </ThemeConfig>
-      </NotificationProvider>
+        </NotificationProvider>
+      </ThemeConfig>
     </html>
   )
 }

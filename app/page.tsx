@@ -4,19 +4,9 @@ import { Button, Container, Grid } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Image from "next/image"
 import Link from 'next/link'
-import {useNotification } from './context/notification.context'
-
 
 
 export default function Home() {
-
-  const { getError } = useNotification();
-
-  const handleClick = () => {
-    getError('Hello niggers')
-  }
-
-
   return (
     <>
       <Container component="main" maxWidth="lg" >
@@ -48,14 +38,9 @@ export default function Home() {
           </Grid>
 
           <Grid item >
-            <Link href="/register">
+            <Link href="/pages/register">
               <Button variant="contained" type="button">Get Started</Button>
             </Link>
-          </Grid>
-
-          <Grid item>
-            <Button variant='contained' type="button" onClick={handleClick}>Notification Test</Button>
-
           </Grid>
         </Grid>
 
