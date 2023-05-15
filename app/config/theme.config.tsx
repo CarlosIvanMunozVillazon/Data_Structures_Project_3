@@ -49,7 +49,8 @@ const theme = createTheme ({
         MuiAppBar : {
             defaultProps : {
                 style:{
-                    backgroundColor:themePalette.GRAY_1
+                    backgroundColor:themePalette.GRAY_1,
+                    boxShadow : "none"
                 }
             }
         },

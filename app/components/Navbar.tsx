@@ -8,11 +8,17 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button";
 
 import React from "react";
+import Link from "next/link";
 
-export const Navbar: React.FC<{}> = () => {
+type NavbarProperties = {
+    button1Direction: string;
+    button2Direction: string
+}
+
+export const Navbar: React.FC<NavbarProperties> = ({ button1Direction, button2Direction }: NavbarProperties) => {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed">
+            <AppBar position="sticky">
                 <Toolbar>
                     <Container maxWidth="xl">
                         <Grid
@@ -22,14 +28,21 @@ export const Navbar: React.FC<{}> = () => {
                             alignItems="center"
                         >
                             <Grid item >
-                                <Typography>SharpSight</Typography>
+                                <Typography variant = "h4">SharpSight</Typography>
                             </Grid>
                             <Grid item >
                                 <Stack direction="row" spacing={2}>
-                                    <Button variant="contained" >
-                                        Log In
-                                    </Button>
-                                    <Button variant="contained">Register</Button>
+
+                                    <Link href={button1Direction}>
+                                        <Button variant="contained" >
+                                            Log In
+                                        </Button>
+                                    </Link>
+                                    <Link href={button2Direction}>
+                                        <Button variant="contained" >
+                                            Register
+                                        </Button>
+                                    </Link>
                                 </Stack>
                             </Grid>
                         </Grid>
