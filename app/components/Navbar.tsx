@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProperties> = ({ button1Direction, button2Di
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="sticky">
                 <Toolbar>
-                    <Container maxWidth="xl">
+                    <Container sx = {{width : "100%"}}>
                         <Grid
                             container
                             justifyContent="space-between"

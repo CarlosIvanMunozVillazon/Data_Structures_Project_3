@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar"
 import Container from "@mui/material/Container"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
-import { BasicNavBar } from "../components/BasicNavBar";
+import { BasicNavbar } from "../components/BasicNavbar";
 
 import React from 'react'
 
@@ -14,7 +14,7 @@ type basicLayoutProperties = {
 function BasicLayout({ children }: basicLayoutProperties) {
     return (
         <main>
-            <BasicNavBar></BasicNavBar>
+            <BasicNavbar></BasicNavbar>
             {children}
         </main>
     )
