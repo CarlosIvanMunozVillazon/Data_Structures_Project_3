@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const BASE_URL = "https://rickandmortyapi.com/api/";//Base API endpoint
 
-//Here we import axios conecction. i.e Axios's instance.
+//Here we import axios conecction. i.e Axios's instance, api connection is created.
 export const instance = axios.create(
     {
         baseURL:BASE_URL

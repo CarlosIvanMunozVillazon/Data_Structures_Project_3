@@ -6,6 +6,8 @@ import Image from "next/image"
 import Link from 'next/link'
 import Header from './components/Header'
 import { Navbar } from './components/Navbar'
+import React from 'react'
+import { characters } from './api/character'
 
 /* Possibly needed code
 <Grid
@@ -45,6 +47,7 @@ spacing={5}
 */
 
 export default function Home() {
+
   return (
     <>
       <Navbar button1Direction='/pages/login' button2Direction='/pages/register' />

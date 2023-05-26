@@ -17,7 +17,7 @@ type layoutProperties = {
 function TestLayout({ children }: layoutProperties) {
     return (
         <main>
-            <Navbar></Navbar>
+            
             {children}
         </main>
     )
