@@ -1,23 +1,38 @@
 "use client"
-import { characters } from "@/app/api/character";
-import { ProductCard } from "@/app/components/ProductCard";
+import { products } from "@/app/api/product";
 import BasicLayout from "@/app/layouts/BasicLayout";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { CharacterType } from "./interface/Character.interface";
+import { ProductInterface } from "./interface/Product.interface";
+import { BaseCard } from "@/app/components/BaseCard";
+import { isNull } from "util";
 
 export default function Products() {
 
-    const [allCharacters, setAllCharacters] = React.useState<CharacterType[] | null>(null);
+
+    const [getProducts, setGetProducts] = React.useState<ProductInterface[] | null>(null);
+
+    // React.useEffect(() => {
+
+    //     products.getAll().then((r) => {
+    //         setGetProducts(r.data)
+    //     }).catch((Error) => {
+    //         console.error(Error)
+    //     })
+
+    // }, [])
 
 
-    React.useEffect(() => { //allows loading info when the page is loaded.
-        characters.getAll({ page: 1 }).then((r) => { //whithin then and catch we put arrow functions.
-            setAllCharacters(r.data.results)
-        }).catch((e) => {
-            console.error(e);
-        })
-    }, [])
+    //    const [allCharacters, setAllCharacters] = React.useState<CharacterType[] | null>(null);
+
+
+    // React.useEffect(() => { //allows loading info when the page is loaded.
+    //     characters.getAll({ page: 1 }).then((r) => { //whithin then and catch we put arrow functions.
+    //         setAllCharacters(r.data.results)
+    //     }).catch((e) => {
+    //         console.error(e);
+    //     })
+    // }, [])
 
     //we can also load specific character info, by adding a character function.
 
@@ -43,9 +58,22 @@ export default function Products() {
                         }
                     </Grid>
                 ) : ""}
-
+//events offer info about events
 
     */
+
+
+
+
+    const bringData = () => {
+
+        products.getAll().then((r) => {
+            setGetProducts(r.data)
+        }).catch((Error) => {
+            console.error(Error)
+        })
+
+    }
 
     return <>
         <BasicLayout>
@@ -58,14 +86,56 @@ export default function Products() {
                 sx={{ width: "100%" }}
             >
 
-                <TextField sx={{ width: "60%", mt: 5 }} placeholder="What are you looking for?">              </TextField>
-                <Button variant="contained" sx={{ height: "100%", mx: 3, mt: 5 }}>Search</Button>
+                <TextField sx={{ width: "60%", mt: 5 }} placeholder="What are you looking for?"></TextField>
+                <Button
+                    variant="contained"
+                    sx={{ height: "100%", mx: 3, mt: 5 }}
+                    onClick={bringData}>Search</Button>
 
             </Grid>
 
 
-            <Container component = "main">
-                {allCharacters?.length !== 0 ? (
+            <Container component="main">
+
+                {
+                    getProducts !== null ? (
+
+                        <Grid container
+                            component="main"
+                            justifyContent="center"
+                            alignItems="center"
+                            direction="row"
+                            spacing={1}
+                            sx={{ height: "100%" }}>
+
+                            {
+                                getProducts!.map((product) => (
+                                    <Grid item xs={3}>
+                                        <BaseCard title={product.titulo}
+                                            link={product.link} price={product.precio}
+                                            store={product.tienda} />
+                                    </Grid>
+                                ))
+
+                            }
+                        </Grid>
+
+                    ) :
+
+                        <Grid container
+                            component="main"
+                            justifyContent="center"
+                            alignItems="center"
+                            direction="row"
+                            spacing={1}
+                            sx={{ height: "100%" }}>
+                                <Grid item >
+                                    <Typography variant = "caption">No elements found</Typography>
+                                </Grid>
+                        </Grid>
+
+                }
+                {/* {allCharacters?.length !== 0 ? (
                     <Grid container
                         component="div"
                         justifyContent="center"
@@ -74,7 +144,36 @@ export default function Products() {
                         spacing={1}
                         sx={{ width: "100%", height: "100%", mt: 0.7 }}>
 
-                        {
+{
+                            allCharacters!.map((character) => (
+                                <Grid item xs={3}>
+                                    <ProductCard key={character.id} imageRef={character.image} name={character.name}
+                                        species={character.species} description="generic card desc"
+                                    />
+                                </Grid>
+
+                            ))
+                        }
+                    </Grid>
+                ) : ""} */}
+            </Container>
+        </BasicLayout>
+    </>
+}
+
+/*
+
+
+{allCharacters?.length !== 0 ? (
+                    <Grid container
+                        component="div"
+                        justifyContent="center"
+                        alignItems="center"
+                        direction="row"
+                        spacing={1}
+                        sx={{ width: "100%", height: "100%", mt: 0.7 }}>
+
+{
                             allCharacters!.map((character) => (
                                 <Grid item xs={3}>
                                     <ProductCard key={character.id} imageRef={character.image} name={character.name}
@@ -86,7 +185,6 @@ export default function Products() {
                         }
                     </Grid>
                 ) : ""}
-            </Container>
-        </BasicLayout>
-    </>
-}
+
+
+*/

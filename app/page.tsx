@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Header from './components/Header'
 import { Navbar } from './components/Navbar'
 import React from 'react'
-import { characters } from './api/character'
+import { characters } from './api/product'
 
 /* Possibly needed code
 <Grid
