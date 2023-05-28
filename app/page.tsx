@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <Navbar button1Direction='/pages/login' button2Direction='/pages/register' />
       <Container component="main" maxWidth="xl">
-        <Header title='Welcome to SharpSight' description='A web apliccation for price comparison' />
+        <Header title='Welcome to SharpSight' description='A web application for price comparison' />
 
         <Divider sx={{ mt: 2, mb: 4 }}></Divider>
 
