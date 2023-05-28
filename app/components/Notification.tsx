@@ -2,16 +2,15 @@ import { Alert, AlertColor, Snackbar, Typography } from "@mui/material"
 import React from "react"
 
 type NotificationProperties = {
-    open: boolean, //we need to open and close
+    open: boolean, //This vble describes when the notification is open and when is closed.
     message: string,
-    severity: AlertColor | undefined, //pasa por el área del alert
+    severity: AlertColor | undefined, //Passes through the "alert" área.
     handleClose: () => void
 }
 
 export const Notification: React.FC<NotificationProperties> = ({ open, message, severity, handleClose }: NotificationProperties) => {
 
-    //Snackbar: muestra mensajes temporales en la parte inferior de la pantalla. Chebre pa mostrar mensajes de éxito, advertencia, y error entre otros.
-
+    //Snackbar: shows temporary messages in the screen. Usefull for showing "success", "warning", & "error" messages.
     return (
         <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}

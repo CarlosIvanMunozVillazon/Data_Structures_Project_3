@@ -1,13 +1,14 @@
-//The endpoints should be worked in different files.
+import axios from "axios";  //import axios library for making petitions
 
-//1. import axios.
-import axios from "axios"; 
+//Copy the base API URL for hitting its endpoints.
+export const BASE_URL = "http://127.0.0.1:8000";
 
-export const BASE_URL = "http://127.0.0.1:8000";//Base API endpoint
-
-//Here we import axios conecction. i.e Axios's instance, api connection is created.
+//Instantiate Axios and then export it.
+//e.i Axios's instance means API connection is created.
 export const instance = axios.create(
     {
         baseURL:BASE_URL
     }
 )
+
+//Then for hitting different endpoints we should handle them within different files ex = "product.ts"

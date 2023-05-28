@@ -5,7 +5,7 @@ import { Box, Button, Container, Stack, TextField, Typography } from "@mui/mater
 import Grid from "@mui/material/Grid";
 import Image from "next/image"
 import React from "react";
-import { ProductInterface } from "../products/interface/Product.interface";
+import { ProductInterface } from "../../interface/Product.interface";
 import { BaseCard } from "@/app/components/BaseCard";
 
 //1. declare type of thing we want to search.
@@ -30,12 +30,14 @@ export default function Search() {
     //4. then we use a function for getting info about the change event that ocurrs within the input element, to setUp our searchedObject.
     const newItem = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductName({
+            //"..." allows us keeping the info previously registered by other text fields.
             ...productName, [e.target.name]: e.target.value
         }
         )
     }
 
-    const searchName = (name: string) => {
+    //5. now we write a functions that receives as a parameter  the name of the item that we want to search for. Within it we will find functions that hit the API endpoint in some way.
+    const searchProduct = (name: string) => {
 
         products.getProduct(name).then((r) => {
             setItems(r.data)
@@ -44,10 +46,11 @@ export default function Search() {
         })
     }
 
+    //6. here we handle de submit event of the search form below. We prevent it's default behavior, and then we proceed to search for the elements by calling the searchProduct function.
     const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault()
-        searchName(productName.itemName)
+        searchProduct(productName.itemName)
 
     }
 
@@ -94,7 +97,7 @@ export default function Search() {
                 </Grid>
 
                 {
-                    items !== null ? (
+                    items !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                         <Grid container
                             component="div"
@@ -105,11 +108,11 @@ export default function Search() {
                             sx={{ height: "100%" }}>
 
                             {
-                                items!.map((product) => (
+                                items!.map((article) => (
                                     <Grid item xs={3}>
-                                        <BaseCard title={product.titulo}
-                                            link={product.link} price={product.precio}
-                                            store={product.tienda} />
+                                        <BaseCard title={article.titulo}
+                                            link={article.link} price={article.precio}
+                                            store={article.tienda} />
                                     </Grid>
                                 ))
 
