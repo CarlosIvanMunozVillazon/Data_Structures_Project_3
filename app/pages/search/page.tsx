@@ -1,13 +1,41 @@
 "use client"
+import { products } from "@/app/api/product";
 import { BasicNavbar } from "@/app/components/BasicNavbar";
 import { SearchInput } from "@/app/components/SearchInput";
-import { Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Image from "next/image"
+import React from "react";
+import { ProductInterface } from "../products/interface/Product.interface";
 
 export default function Search() {
     //1. insert grid component for aligning the elements.
+
+    const [prod, setProd] = React.useState<ProductInterface[] | null>(null);
+
+    const searchName = (name: string) => {
+
+        products.getByName(name).then((r) => {
+            setProd(r.data)
+        }).catch((Error) => {
+            console.error(Error)
+        })
+    }
+
+    React.useEffect(() => {
+        searchName("iphone")
+    }, [])
+
+    //const [searchData, setSearchData] = React.useState<string>("");
+
+    // const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+        
+    //     searchName();
+    // }
+
+    console.log(prod)
+
     return <>
         <BasicNavbar></BasicNavbar>
 
@@ -18,7 +46,7 @@ export default function Search() {
             direction="column"
             justifyItems="center"
             spacing={5}
-            sx={{ height: "100%", mt: 2, width : "100%"}}
+            sx={{ height: "100%", mt: 2, width: "100%" }}
 
         >
 
@@ -35,8 +63,10 @@ export default function Search() {
             </Grid>
 
 
-            <TextField placeholder="What are you looking for?" sx={{ width: "35%", height: "10%" , mt : 5}}></TextField>
-            <Button variant="contained" sx={{ mt: 1.5, width: "12%" }}>Search</Button>
+            <Box component = "form" >
+                <TextField placeholder="What are you looking for?" sx={{ width: "35%", height: "10%", mt: 5 }}></TextField>
+                <Button type="submit" variant="contained" sx={{ mt: 1.5, width: "12%" }}>Search</Button>
+            </Box>
 
         </Grid>
 

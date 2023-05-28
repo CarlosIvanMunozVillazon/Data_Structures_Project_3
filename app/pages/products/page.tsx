@@ -62,8 +62,7 @@ export default function Products() {
 
     */
 
-
-
+    
 
     const bringData = () => {
 
@@ -74,6 +73,9 @@ export default function Products() {
         })
 
     }
+
+   
+
 
     return <>
         <BasicLayout>
@@ -91,9 +93,13 @@ export default function Products() {
                     variant="contained"
                     sx={{ height: "100%", mx: 3, mt: 5 }}
                     onClick={bringData}>Search</Button>
+                
+                
+
 
             </Grid>
 
+            <Button onClick={bringData}>Hola</Button>
 
             <Container component="main">
 

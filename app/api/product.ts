@@ -20,5 +20,10 @@ export const products = {
 
     getAll : function () {
         return instance.get(`${endpoint}`)
+    },
+
+    getByName : function (name : string) {
+        return instance.get(`${endpoint}/${name}` )
     }
+
 }
