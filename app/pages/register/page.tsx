@@ -1,12 +1,12 @@
 "use client"
-
+//how to get info from form
 import React from 'react'
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useNotification } from '@/app/context/notification.context'
 import { RegisterValidation } from '@/app/helpers/validateForm'
 
-
+//first we declare the type of object we want to extract from the form
 type NewUser = {
     userName: string,
     lastName: string,
@@ -19,7 +19,7 @@ type NewUser = {
 export default function Register() {
 
     const { getError, getSuccess } = useNotification();
-
+//second we declare our useState array where we are going to save the information
     const [newUser, setNewUser] = React.useState<NewUser>(
         {
             userName: "",
@@ -29,15 +29,15 @@ export default function Register() {
             confirmPassword: ""
         }
     )
-
+//third, we use a function for getting information about the change event that ocurr within the form
     const newUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewUser(
-            {
+            {// "..." allows us accessing different property's names
                 ...newUser, [e.target.name]: e.target.value
             }
         )
     };
-
+//at the end we handle the submit of our form in order to process the data we just entered in the form
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 

@@ -1,10 +1,10 @@
-//In orther to hit our base api URL we must import it to the files that handldes that section of the API.
+//In order to hit our base api URL we must import it to the files that handldes that section of the API.
 import { instance } from "./base.api"
 
 //This word hits the endpoint that directs to the character section of the API.
 const endpoint = "products"
 
-//Now we declare an object for calling the character section. Within this object we can have different functions.
+//Now we declare an object for calling the product section. Within this object we can have different functions, for hitting our endpoint in different ways.
 export const products = {
     // getAll : function({page = 1} : {page ?: number}){
     //     //get method. asks for endpoint info 
@@ -22,7 +22,7 @@ export const products = {
         return instance.get(`${endpoint}`)
     },
 
-    getByName : function (name : string) {
+    getProduct : function (name : string) {
         return instance.get(`${endpoint}/${name}` )
     }
 
