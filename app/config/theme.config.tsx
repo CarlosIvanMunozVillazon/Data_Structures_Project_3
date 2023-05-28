@@ -19,7 +19,7 @@ export enum themePalette {
     GRAY_2 = "#E5E7E9",
     GREEN_1 = "#33FF00",
 
-    GLOBAL_TYPOGRAPHY = "'Lato'"
+    GLOBAL_TYPOGRAPHY = "'Lato', italic",
 }
 
 const theme = createTheme ({
