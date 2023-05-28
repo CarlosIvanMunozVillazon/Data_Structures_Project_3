@@ -10,7 +10,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 
-
+//Still need to review the functions within this component.
 type Anchor = 'left';
 
 type TemporaryDrawerProperties = {

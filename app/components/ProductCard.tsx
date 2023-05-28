@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 
-//CardMedia; loads an image
+//At the beggining always define component properties.
 type ProductCardProperties = {
     imageRef : string
     name : string
@@ -18,6 +18,7 @@ export const ProductCard : React.FC <ProductCardProperties> = ({imageRef, name, 
                 image = {imageRef}
                 alt = "Character Card"
             />
+            {/*Card media: loads an image */}
 
             <CardContent>
                 <Typography variant = "h3">{name}</Typography>

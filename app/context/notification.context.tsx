@@ -15,14 +15,16 @@ export const NotificationContext = React.createContext<ContextProperties | null>
 export const NotificationProvider: React.FC<{ children: JSX.Element }> = ({ children }) => {
 
 
-    //Con estos tres modificamos los estados del tipo de componente Notification.
+    //The next three const handle the Notification properties state.
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState('');
     const [severity, setSeverity] = React.useState<AlertColor | undefined>(undefined);
+
     const handleClose = () => { setOpen(false); }
 
-    //Se maneja por fuera del return, si fuera ahi dentro seria dentro de la aplicación y no queremos eso.
-    //maneja cuando quiero cerrar la notificación.
+    //Here we handle the oppening and close of the notification, outside of the return. If we tried to handle that there it would be hanlded within the application, and we don't want that.
+
+    //The next functions hanlde when we want to close the Notification.
     const getError = (msg: string) => {
 
         setSeverity("error");
@@ -45,13 +47,14 @@ export const NotificationProvider: React.FC<{ children: JSX.Element }> = ({ chil
         getSuccess,
     }
 
-    //.provider es una propiedad del creador de context de react. Lo que estamos creando es un proveedor.
-    //para ello necesitamos crear un contexto, que nos permite llamar el atributo/clase provider, que permite inyectarlo en toda la aplicacion.
 
-    //El componente notification no engloba nada está al mismo nivel que el children.
+
     return (
+        //".provider" is a property of the React's context creator. What we are creating is a provider.
+        //Fot that we need a context, which allows us calling the attribute/class "provider", that allows wrapping the whole application with it.
         <NotificationContext.Provider value={value}>
             <Notification handleClose={handleClose} open={open} severity={severity} message={message} />
+            {/*The notification component is at the same level as the children. */}
             {children}
         </NotificationContext.Provider>
     )
