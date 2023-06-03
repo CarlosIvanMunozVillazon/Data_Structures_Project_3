@@ -1,15 +1,25 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import { UrlObject } from "url";
 
 type BaseCardProperties = {
     title: string,
     price: string,
-    link: string,
+    link: Url,
     store: string
 }
 
 export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, store }: BaseCardProperties) => {
+    
+    // const router = useRouter();
+
+    // const handleCard = () => {
+    //     router.push(link)
+    // }
+    
     return <Card>
 
         <CardContent>
@@ -18,7 +28,9 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         </CardContent>
 
         <CardActions>
-            <Button variant="outlined" ><Link className = "text-black" href={link}>{store}</Link></Button>
+            <Button variant="outlined"><Link href={link}></Link>{store}</Button>
         </CardActions>
     </Card>
 }
+
+//<Link className = "text-black" href={link}> how to 

@@ -1,17 +1,23 @@
 "use client"
 
+
 import { Button, Container, Divider, Grid, Stack } from '@mui/material'
 import Image from "next/image"
 import Link from 'next/link'
 import Header from './components/Header'
 import { Navbar } from './components/Navbar'
 import React from 'react'
+import { useRouter } from 'next/router'
+import RouterProvider from 'next/router';
+import { NextPage } from 'next'
 
 
-export default function Home() {
+export const Home: NextPage = () => {
+
 
   return (
     <>
+
       <Navbar button1Direction='/pages/login' button2Direction='/pages/register' />
       <Container component="main" maxWidth="xl">
         <Header title='Welcome to SharpSight' description='A web application for price comparison' />
@@ -46,16 +52,18 @@ export default function Home() {
 
               <Grid item
                 sx={{ width: "60%" }}>
-                <Link href="/pages/search">
-                  <Button sx={{ width: "100%" }} variant="contained">
-                    Get Started </Button>
-                </Link>
+                <Button sx={{ width: "100%" }} variant="contained">
+                  <Link href='/pages/search'>Get Started </Link>
+                </Button>
               </Grid>
 
             </Grid>
           </Grid>
         </Grid>
       </Container>
+
     </>
   )
 }
+
+export default Home;
