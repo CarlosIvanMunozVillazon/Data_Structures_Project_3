@@ -5,25 +5,35 @@ import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { ProductInterface } from "../../interface/Product.interface";
 import { BaseCard } from "@/app/components/BaseCard";
+import { producto } from "../search/interface/product.interface";
 
 export default function Products() {
 
 
-    const [getProducts, setGetProducts] = React.useState<ProductInterface[] | null>(null);
+    const [gottenProducts, setgottenProducts] = React.useState<producto[] | null>(null);
 
 
 
     const bringData = () => {
 
-        apiProducts.searchProducts().then((r) => {
-            setGetProducts(r.data)
+        apiProducts.getAllProducts().then((response) => {
+            setgottenProducts(response.data)
         }).catch((Error) => {
             console.error(Error)
         })
 
     }
 
+    React.useEffect(() => {
 
+        apiProducts.getAllProducts().then((response) => {
+            setgottenProducts(response.data)
+        }).catch((error) => {
+            console.log(`${error}`)
+        })
+    }, [])
+
+    /*Ternary operator base syntax: getProducts !== null ? () : ()*/
 
 
     return <>
@@ -37,21 +47,18 @@ export default function Products() {
                 sx={{ width: "100%" }}
             >
 
-                <TextField sx={{ width: "60%", mt: 5 }} placeholder="What are you looking for?"></TextField>
-                <Button
-                    variant="contained"
-                    sx={{ height: "100%", mx: 3, mt: 5 }}
-                    onClick={bringData}>Search</Button>
+
+                <Typography variant="caption">Fancy buttons still need to be placed.</Typography>
 
 
 
 
             </Grid>
-{/*Ternary operator base syntax: getProducts !== null ? () : ()*/}
+
             <Container component="main">
 
                 {
-                    getProducts !== null ? (
+                    gottenProducts !== null ? (
 
                         <Grid container
                             component="main"
@@ -62,7 +69,7 @@ export default function Products() {
                             sx={{ height: "100%" }}>
 
                             {
-                                getProducts!.map((product) => (
+                                gottenProducts!.map((product) => (
                                     <Grid item xs={3}>
                                         <BaseCard title={product.titulo}
                                             link={product.link} price={product.precio}

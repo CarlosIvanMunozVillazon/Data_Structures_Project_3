@@ -1,13 +1,14 @@
 "use client"
 import { apiProducts } from "@/app/api/products/product";
 import { BasicNavbar } from "@/app/components/BasicNavbar";
-import { Box, Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, Link, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Image from "next/image"
 import React from "react";
 import { ProductInterface } from "../../interface/Product.interface";
 import { BaseCard } from "@/app/components/BaseCard";
 import BasicLayout from "@/app/layouts/BasicLayout";
+import { producto } from "./interface/product.interface";
 
 //1. declare type of thing we want to search.
 type searchedItem = {
@@ -18,7 +19,7 @@ type searchedItem = {
 export default function Search() {
 
     //2. use our "useState" hook for stablishing where and how are we going to store our fetched data.
-    const [items, setItems] = React.useState<ProductInterface[] | null>(null);
+    const [productSet, setProductSet] = React.useState<producto[] | null>(null);
 
 
     //3. use again our "useState" hook for declaring where and how are we storing the data from the search input.
@@ -37,22 +38,16 @@ export default function Search() {
         )
     }
 
-    //5. now we write a functions that receives as a parameter  the name of the item that we want to search for. Within it we will find functions that hit the API endpoint in some way.
-    const searchProduct = (name: string) => {
-
-        apiProducts.searchProducts(name).then((response) => {
-            setItems(response.data)
-        }).catch((Error) => {
-            console.error(Error)
-        })
-    }
-
-    //6. here we handle de submit event of the search form below. We prevent it's default behavior, and then we proceed to search for the elements by calling the searchProduct function.
+    //5. here we handle de submit event of the search form below. We prevent it's default behavior, and then we proceed to search for the elements by calling the searchProduct function.
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault()
-        searchProduct(productName.itemName)
 
+        apiProducts.searchProducts(productName.itemName).then((response) => {
+            setProductSet(response.data)
+        }).catch((Error) => {
+            console.error(Error)
+        })
     }
 
 
@@ -100,7 +95,7 @@ export default function Search() {
                     </Grid>
 
                     {
-                        items !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                        productSet !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                             <Grid container
                                 component="div"
@@ -109,17 +104,9 @@ export default function Search() {
                                 direction="row"
                                 spacing={1}
                                 sx={{ height: "100%" }}>
-
-                                {
-                                    items!.map((article) => (
-                                        <Grid item xs={3}>
-                                            <BaseCard title={article.titulo}
-                                                link={article.link} price={article.precio}
-                                                store={article.tienda} />
-                                        </Grid>
-                                    ))
-
-                                }
+                                <Grid item >
+                                    <Link underline="hover" color='GrayText' href="/pages/products/"><Typography variant="caption">Products ready: click me</Typography></Link>
+                                </Grid>
                             </Grid>
 
                         ) :

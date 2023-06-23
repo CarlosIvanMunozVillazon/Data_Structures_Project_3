@@ -7,7 +7,7 @@ import { UrlObject } from "url";
 
 type BaseCardProperties = {
     title: string,
-    price: string,
+    price: number,
     link: Url,
     store: string
 }
