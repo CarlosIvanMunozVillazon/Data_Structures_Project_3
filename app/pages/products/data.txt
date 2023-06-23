@@ -1,4 +1,6 @@
-titulo: "Celular Samsung A21s"
-precio: 550000
-link: "https://articulo.mercadolibre.com.co/MCO-877732432-celular-samsung-a21s-_JM#position=1&search_layout=stack&type=item&tracking_id=8a843c99-404b-435e-9754-75aba5c86900"
-tienda: "Mercado Libre"
+    "titulo": "Consola Play 5 Digital Nueva Sellada Envio Gratis",
+    "precio": 2799900,
+    "link": "https://articulo.mercadolibre.com.co/MCO-625213810-consola-play-5-digital-nueva-sellada-envio-gratis-_JM#position=33&search_layout=stack&type=item&tracking_id=5c2fd653-a500-488b-9d94-c6db0f7f3859",
+    "tienda": "Mercado Libre",
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_918895-MCO46664319718_072021-V.webp",
+    "marca": "Otra"

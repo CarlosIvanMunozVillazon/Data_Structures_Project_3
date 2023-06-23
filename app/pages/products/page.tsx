@@ -1,5 +1,5 @@
 "use client"
-import { products } from "@/app/api/product";
+import { products } from "@/app/api/products/product";
 import BasicLayout from "@/app/layouts/BasicLayout";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React from "react";

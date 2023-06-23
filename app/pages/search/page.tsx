@@ -1,5 +1,5 @@
 "use client"
-import { products } from "@/app/api/product";
+import { products } from "@/app/api/products/product";
 import { BasicNavbar } from "@/app/components/BasicNavbar";
 import { Box, Button, Container, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
