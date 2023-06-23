@@ -4,7 +4,7 @@ import Container from "@mui/material/Container"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import React from "react";
-import {Grid, IconButton, Stack } from "@mui/material";
+import { Grid, IconButton, Stack } from "@mui/material";
 import Link from "next/link";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
@@ -57,30 +57,34 @@ export const BasicNavbar: React.FC<{}> = () => {
                                             onClick={toggleDrawer("left", true)}>
                                             <MenuIcon></MenuIcon>
                                         </IconButton>
-                                    <Image
-                                        className="border-slate pb-8"
-                                        src="/images/AppLogo2.png"
-                                        width={50}
-                                        height={40}
-                                        alt="AppLogo2"
-                                        priority={true}
-                                    />
-                                    <Typography variant="h4">SharpSight</Typography>
-                                </Stack>
-                            </Grid>
+                                        <Link href='/pages/search/'>
+                                            <Image
+                                                className="border-slate pb-8"
+                                                src="/images/AppLogo2.png"
+                                                width={50}
+                                                height={40}
+                                                alt="AppLogo2"
+                                                priority={true}
+                                            />
 
-                            <Grid item >
-                                <Stack direction="row" spacing={2}>
-                                    <WbSunnyOutlinedIcon></WbSunnyOutlinedIcon>
-                                    <PersonIcon></PersonIcon>
-                                    <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
-                                </Stack>
+                                        </Link>
+
+                                        <Typography variant="h4">SharpSight</Typography>
+                                    </Stack>
+                                </Grid>
+
+                                <Grid item >
+                                    <Stack direction="row" spacing={2}>
+                                        <WbSunnyOutlinedIcon></WbSunnyOutlinedIcon>
+                                        <PersonIcon></PersonIcon>
+                                        <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                                    </Stack>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Container>
-                </Toolbar>
-            </AppBar>
-            <TemporaryDrawer setState={setState} toggleDrawer={toggleDrawer} state = {state}></TemporaryDrawer>
+                        </Container>
+                    </Toolbar>
+                </AppBar>
+                <TemporaryDrawer setState={setState} toggleDrawer={toggleDrawer} state={state}></TemporaryDrawer>
             </Box>
         </>
     )

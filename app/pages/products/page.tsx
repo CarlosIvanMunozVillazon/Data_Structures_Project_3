@@ -1,5 +1,5 @@
 "use client"
-import { products } from "@/app/api/products/product";
+import { apiProducts } from "@/app/api/products/product";
 import BasicLayout from "@/app/layouts/BasicLayout";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
@@ -15,7 +15,7 @@ export default function Products() {
 
     const bringData = () => {
 
-        products.getAll().then((r) => {
+        apiProducts.searchProducts().then((r) => {
             setGetProducts(r.data)
         }).catch((Error) => {
             console.error(Error)

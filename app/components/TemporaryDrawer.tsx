@@ -20,7 +20,7 @@ type TemporaryDrawerProperties = {
 
 }
 
-
+//Links for navigating using the icons still need to be implemented.
 export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, setState, toggleDrawer }: TemporaryDrawerProperties) => {
 
 
