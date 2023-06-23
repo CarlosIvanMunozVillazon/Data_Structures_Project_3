@@ -59,7 +59,9 @@ export const apiProducts = {
         }})
     },
 
-    filterProductsByBrand : () => {
-        return instance.get()
+    filterProductsByBrand : (brandName : string) => {
+        return instance.get(`${endpoint.products}/${endpoint.productsFilter}/${endpoint.productBrand}`, {params : {
+            brand : brandName
+        }})
     }
 }
