@@ -8,7 +8,7 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-import { Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Grid, IconButton, Link, Stack, Typography } from '@mui/material';
 
 //Still need to review the functions within this component.
 type Anchor = 'left';
@@ -43,36 +43,34 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, se
         <Grid item alignItems="center">
           <Stack direction="column" spacing={5}>
 
-            <IconButton>
-              <RocketLaunchOutlinedIcon></RocketLaunchOutlinedIcon>
-              <Typography variant="body1" textAlign="center">Discover</Typography>
-            </IconButton>
+            <Link color='gray' underline='hover' href='/pages/search'>
+              <IconButton>
+                <RocketLaunchOutlinedIcon></RocketLaunchOutlinedIcon>
+                <Typography variant="body1" textAlign="center">Discover</Typography>
+              </IconButton>
+            </Link>
 
 
-            <IconButton>
-              <CampaignIcon></CampaignIcon>
-              <Typography variant="body1" textAlign="center">Promotions</Typography>
-            </IconButton>
+            <Link color='gray' underline='hover' href='/pages/wishList'>
+              <IconButton>
+                <FavoriteIcon></FavoriteIcon>
+                <Typography variant="body1" textAlign="center">Wished List Manager</Typography>
+              </IconButton>
+            </Link>
 
-            <IconButton>
-              <ViewInArIcon></ViewInArIcon>
-              <Typography variant="body1" textAlign="center">New Products</Typography>
-            </IconButton>
+            <Link color='gray' underline='hover' href='/pages/products'>
+              <IconButton>
+                <LaptopIcon></LaptopIcon>
+                <Typography variant="body1" textAlign="center">My Results</Typography>
+              </IconButton>
+            </Link>
 
-            <IconButton>
-              <RecyclingIcon></RecyclingIcon>
-              <Typography variant="body1" textAlign="center">Used Products</Typography>
-            </IconButton>
-
-            <IconButton>
-              <LaptopIcon></LaptopIcon>
-              <Typography variant="body1" textAlign="center">Results</Typography>
-            </IconButton>
-
-            <IconButton>
-              <FavoriteIcon></FavoriteIcon>
-              <Typography variant="body1" textAlign="center">Wished</Typography>
-            </IconButton>
+            <Link color='gray' underline='hover' href='/pages/comparisonList'>
+              <IconButton>
+                <LaptopIcon></LaptopIcon>
+                <Typography variant="body1" textAlign="center">Comparison Manager</Typography>
+              </IconButton>
+            </Link>
 
           </Stack>
 

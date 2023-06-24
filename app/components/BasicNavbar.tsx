@@ -57,7 +57,7 @@ export const BasicNavbar: React.FC<{}> = () => {
                                             onClick={toggleDrawer("left", true)}>
                                             <MenuIcon></MenuIcon>
                                         </IconButton>
-                                        <Link href='/pages/search/'>
+                                        <Link href='/pages/'>
                                             <Image
                                                 className="border-slate pb-8"
                                                 src="/images/AppLogo2.png"
