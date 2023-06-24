@@ -26,13 +26,13 @@ export const apiUser = {
   //for putting new
   postUser : (ID : number, name : string, lastName : string, correo : string, contrasenha : string) => {
     
-    return instance.post(`${endpoint}`,{
+    return instance.post(`${endpoint}`, null,{ params : {
       id : ID,
       nombre : name,
       apellido : lastName,
       email : correo,
       password : contrasenha
-    })
+    }})
   },
   
   //for deleting users

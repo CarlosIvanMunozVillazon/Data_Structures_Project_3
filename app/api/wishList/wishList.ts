@@ -14,17 +14,17 @@ export const apiWishList = {
   },
 
   postWishList: (title: string,price: number, link: string, store: string, brand: string) => {
-    return instance.post(`${endpoint.wishList}/${endpoint.product}`, {
+    return instance.post(`${endpoint.wishList}/${endpoint.product}`, null, {params : {
       titulo: title,
       precio: price,
       link: link,
       tienda: store,
       marca: brand,
-    });
+    }});
   },
 
   deleteWishListProduct: (title: string,price: number,link: string,store: string,brand: string) => {
-    return instance.delete(`${endpoint.wishList}/${endpoint.product}`,{data : {
+    return instance.delete(`${endpoint.wishList}/${endpoint.product}`,{params : {
         titulo: title,
         precio: price,
         link: link,
