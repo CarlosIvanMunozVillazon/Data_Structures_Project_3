@@ -134,7 +134,7 @@ export default function Products() {
     }
 
 
-    return <>
+    return (<>
         <BasicLayout>
 
             <Grid container
@@ -228,7 +228,7 @@ export default function Products() {
                 </Grid>
             </Grid>
 
-            <Container component="main">
+            <Container component="main" sx = {{mt : 2, width : '100%'}}>
 
                 {
                     gottenProducts !== null ? (
@@ -239,14 +239,15 @@ export default function Products() {
                             alignItems="center"
                             direction="row"
                             spacing={1}
-                            sx={{ height: "100%" }}>
+                            sx={{ height: "100%", mt : 2}}>
 
                             {
                                 gottenProducts!.map((product) => (
-                                    <Grid item xs={3}>
+                                    <Grid item xs={4}>
                                         <BaseCard title={product.titulo}
                                             link={product.link} price={product.precio}
-                                            store={product.tienda} />
+                                            store={product.tienda} brand = {product.marca}
+                                            image = {product.imagen}/>
                                     </Grid>
                                 ))
 
@@ -267,10 +268,9 @@ export default function Products() {
                                 <Typography variant="caption">No elements found</Typography>
                             </Grid>
                         </Grid>
-
                 }
 
             </Container>
         </BasicLayout>
-    </>
+    </>)
 }

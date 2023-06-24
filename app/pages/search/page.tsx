@@ -119,7 +119,6 @@ export default function Search() {
                                     <Typography variant="caption">No elements found</Typography>
                                 </Grid>
                             </Grid>
-
                     }
 
                 </Grid>

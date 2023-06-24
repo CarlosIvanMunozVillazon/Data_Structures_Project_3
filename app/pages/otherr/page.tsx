@@ -7,7 +7,7 @@ import BasicLayout from "@/app/layouts/BasicLayout";
 import { apiWishList } from "@/app/api/wishList/wishList";
 import { producto } from "../search/interface/product.interface";
 
-export default function WishList () {
+export default function Other () {
 
     const [wishListProducts, setWishListProducts] = React.useState<producto[] | null>(null);
 

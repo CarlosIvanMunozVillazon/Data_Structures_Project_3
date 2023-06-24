@@ -18,8 +18,10 @@ export const apiOthers = {
         return instance.get(`${endpoint.othersBrands}`)
     },
 
-    getBrandsAndSellers : () => {
-        return instance.get(`${endpoint.othersBrands}/${endpoint.otherSeller}`)
+    getBrandsAndSellers : (sellerName : string) => {
+        return instance.get(`${endpoint.othersBrands}/${endpoint.otherSeller}`, {params : {
+            seller : sellerName
+        }}) 
     }
     
 }

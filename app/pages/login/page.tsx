@@ -6,6 +6,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useNotification } from '@/app/context/notification.context'
 import { LoginValidation } from '@/app/helpers/validateForm'
+import { apiUser } from '@/app/api/user/user'
 
 type LoginInformation = {
   email: string,
@@ -61,16 +62,22 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => { //aqui validamos con yup
     e.preventDefault();
 
-    LoginValidation.validate(logIn).then(() => {
+    // LoginValidation.validate(logIn).then(() => {
 
-      getSuccess(JSON.stringify(logIn)) //para que la notificacion imprima el objeto
+    //   getSuccess(JSON.stringify(logIn)) //para que la notificacion imprima el objeto
 
-    }
-    ).catch((error) => {
+    // }
+    // ).catch((error) => {
 
-      getError(error.message) //por si tenemos datos no validos
-    }
-    )
+    //   getError(error.message) //por si tenemos datos no validos
+    // }
+    // )
+
+    apiUser.getUserValidation(logIn.email, logIn.password).then((response) => {
+      getSuccess(response.data);
+    }).catch((error) => {
+      getError(error.message)
+    })
 
   }
 

@@ -9,6 +9,7 @@ const endpoint = {
     comparisonListCompare : 'comparison',
 
     comparisonListProduct : 'product',
+    comparisonListComparison : 'comparison'
 
 }
 
@@ -24,6 +25,10 @@ export const apiComparisonList = {
 
     getComparisonListOrderInverted : () => {
         return instance.get(`${endpoint.comparisonList}/${endpoint.comparisonListOrderInverted}`)
+    },
+
+    getComparisonListComparison : () => {
+        return instance.get(`${endpoint.comparisonList}/${endpoint.comparisonListComparison}`)
     },
 
     postComparisonListProduct : (title: string, price: number, link: string, store: string, brand: string) => {
