@@ -1,12 +1,9 @@
 "use client"
 import { apiProducts } from "@/app/api/products/product";
-import { BasicNavbar } from "@/app/components/BasicNavbar";
 import { Box, Button, Container, Link, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Image from "next/image"
 import React from "react";
-import { ProductInterface } from "../../interface/Product.interface";
-import { BaseCard } from "@/app/components/BaseCard";
 import BasicLayout from "@/app/layouts/BasicLayout";
 import { producto } from "./interface/product.interface";
 
@@ -128,7 +125,5 @@ export default function Search() {
                 </Grid>
             </Container>
         </BasicLayout>
-
-
     </>
 }
