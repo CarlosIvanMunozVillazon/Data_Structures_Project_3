@@ -1,6 +1,4 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { Url } from "next/dist/shared/lib/router/router";
-import Link from "@mui/material";
+import { Button, Card, CardActions, CardContent, Typography, Link } from "@mui/material";
 import React from "react";
 
 
@@ -27,7 +25,7 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         </CardContent>
 
         <CardActions>
-            <Button variant="outlined"><Link href={link}></Link>{store}</Button>
+            <Button variant="outlined"><Link underline = 'hover' color = 'black' href={link}>{store}</Link></Button>
         </CardActions>
     </Card>
 }

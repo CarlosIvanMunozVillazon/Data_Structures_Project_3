@@ -141,17 +141,18 @@ export default function Products() {
                 component="div"
                 alignItems="center"
                 justifyContent="center"
+                alignContent='center'
                 direction="row"
                 sx={{ width: "100%" }}
                 spacing={2}
             >
 
                 <Grid item
-                    sx={{ width: "80%" }}
+                    sx={{ width: "80%" , mt : 2}}
                 >
-                    <Stack direction="row" spacing={2} alignItems='center'>
+                    <Stack direction="row" spacing={2}>
 
-                        <Button type="button" variant="contained" onClick={handleAsc}>Ordenar Ascendente</Button>
+                        <Button type="button" variant="contained" onClick={handleAsc}>Orden Ascendente</Button>
                         <Button type="button" variant="contained" onClick={handleDesc}>Orden Descendente</Button>
                         <Button type="button" variant="contained" onClick={handleBest}>Mejor producto</Button>
                         <Button type="button" variant="contained" onClick={handleAll}>Todos</Button>
