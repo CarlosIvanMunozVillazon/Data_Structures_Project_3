@@ -1,1 +1,0 @@
-//¿What is the set shit in the API  * ask to javier *
