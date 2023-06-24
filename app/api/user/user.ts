@@ -23,9 +23,19 @@ export const apiUser = {
     });
   },
 
-  //post method awating for creation
-  //********************************************************************** */
-
+  //for putting new
+  postUser : (ID : number, name : string, lastName : string, correo : string, contrasenha : string) => {
+    
+    return instance.post(`${endpoint}`,{
+      id : ID,
+      nombre : name,
+      apellido : lastName,
+      email : correo,
+      password : contrasenha
+    })
+  },
+  
+  //for deleting users
   deleteUser: (email: string, password: string) => {
     return instance.delete(`${endpoint}`, {
       params: {
