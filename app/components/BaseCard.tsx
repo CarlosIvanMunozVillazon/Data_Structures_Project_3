@@ -1,14 +1,13 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { Url } from "next/dist/shared/lib/router/router";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from "@mui/material";
 import React from "react";
-import { UrlObject } from "url";
+
 
 type BaseCardProperties = {
     title: string,
     price: number,
-    link: Url,
+    link: string,
     store: string
 }
 

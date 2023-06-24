@@ -3,7 +3,6 @@ import { apiProducts } from "@/app/api/products/product";
 import BasicLayout from "@/app/layouts/BasicLayout";
 import { Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
-import { ProductInterface } from "../../interface/Product.interface";
 import { BaseCard } from "@/app/components/BaseCard";
 import { producto } from "../search/interface/product.interface";
 import { BaseForm } from "@/app/components/BaseForm";
@@ -12,6 +11,11 @@ type priceFilter = {
     minPrice: number,
     maxPrice: number
 }
+
+type nameFilter = {
+    name: string
+}
+
 
 export default function Products() {
 
@@ -66,7 +70,7 @@ export default function Products() {
         })
     }
 
-    //Complex filtering
+    //Complex filtering "price"
     const [priceData, setPriceData] = React.useState<priceFilter>({
         minPrice: 0,
         maxPrice: 0
@@ -89,6 +93,46 @@ export default function Products() {
         })
     }
 
+    //"brand name" & "seller name"
+    const [brandName, setBrandName] = React.useState<nameFilter>({
+        name: ''
+    })
+
+    const [sellerName, setSellerName] = React.useState<nameFilter>({
+        name: ''
+    })
+
+    const handleChgBrand = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setBrandName({
+            ...brandName, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleChgSeller = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setSellerName({
+            ...sellerName, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleBrand = () => {
+
+        apiProducts.filterProductsByBrand(brandName.name).then((response) => {
+            setgottenProducts(response.data);
+        }).catch(() => {
+            console.log(`${Error}`)
+        })
+    }
+
+    const handleSeller = () => {
+        apiProducts.filterProductsBySeller(sellerName.name).then((response) => {
+            setgottenProducts(response.data);
+        }).catch(() => {
+            console.log(`${Error}`)
+        })
+    }
+
 
     return <>
         <BasicLayout>
@@ -99,12 +143,13 @@ export default function Products() {
                 justifyContent="center"
                 direction="row"
                 sx={{ width: "100%" }}
+                spacing={2}
             >
 
                 <Grid item
-                    sx={{ width: "75%" }}
+                    sx={{ width: "80%" }}
                 >
-                    <Stack direction="row" spacing={2}>
+                    <Stack direction="row" spacing={2} alignItems='center'>
 
                         <Button type="button" variant="contained" onClick={handleAsc}>Ordenar Ascendente</Button>
                         <Button type="button" variant="contained" onClick={handleDesc}>Orden Descendente</Button>
@@ -116,9 +161,9 @@ export default function Products() {
                 </Grid>
 
                 <Grid item
-                    sx={{ width: "75%" }}>
+                    sx={{ width: "80%" }}>
 
-                    <BaseForm title='Filtrar por precios' children={
+                    <BaseForm title='Filter by price' children={
                         <>
                             <TextField name='minPrice' placeholder="min" onChange={handleChgPrice}></TextField>
                             <TextField name='maxPrice' placeholder="max" onChange={handleChgPrice}></TextField>
@@ -139,12 +184,11 @@ export default function Products() {
                 </Grid>
 
                 <Grid item
-                    sx={{ width: "75%" }}>
+                    sx={{ width: "40%" }}>
 
-                    <BaseForm title='Filtrar por precios' children={
+                    <BaseForm title='Filter by brand' children={
                         <>
-                            <TextField name='minPrice' placeholder="min" onChange={handleChgPrice}></TextField>
-                            <TextField name='maxPrice' placeholder="max" onChange={handleChgPrice}></TextField>
+                            <TextField name='name' placeholder="brand name" onChange={handleChgBrand}></TextField>
                         </>
                     }
 
@@ -157,8 +201,29 @@ export default function Products() {
                         children3={
                             <></>
                         }
-                        submit={handlePriceFiltering}></BaseForm>
+                        submit={handleBrand}></BaseForm>
 
+                </Grid>
+
+                <Grid item
+                    sx={{ width: "40%" }}>
+
+                    <BaseForm title='Filter by seller' children={
+                        <>
+                            <TextField name='name' placeholder="seller name" onChange={handleChgSeller}></TextField>
+                        </>
+                    }
+
+                        children2={
+                            <Button type='submit' variant='contained'>
+                                Filtrar
+                            </Button>
+                        }
+
+                        children3={
+                            <></>
+                        }
+                        submit={handleSeller}></BaseForm>
                 </Grid>
             </Grid>
 
