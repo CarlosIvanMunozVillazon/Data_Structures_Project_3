@@ -3,6 +3,8 @@ export interface ProductInterface {
   precio: string;
   link: string;
   tienda: string;
+  imagen: string;
+  marca: string
 }
 
 //New product interface
