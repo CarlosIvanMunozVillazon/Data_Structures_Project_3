@@ -120,16 +120,16 @@ export default function Products() {
 
         apiProducts.filterProductsByBrand(brandName.name).then((response) => {
             setgottenProducts(response.data);
-        }).catch(() => {
-            console.log(`${Error}`)
+        }).catch((error) => {
+            console.log(error.message)
         })
     }
 
     const handleSeller = () => {
         apiProducts.filterProductsBySeller(sellerName.name).then((response) => {
             setgottenProducts(response.data);
-        }).catch(() => {
-            console.log(`${Error}`)
+        }).catch((error) => {
+            console.log(error.message)
         })
     }
 
