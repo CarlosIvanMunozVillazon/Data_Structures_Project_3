@@ -73,9 +73,8 @@ export const apiWishList = {
         precio: price,
         link: link,
         tienda: store,
-        image: image,
+        imagen: image,
         marca: brand,
-        
       },
     });
   },
