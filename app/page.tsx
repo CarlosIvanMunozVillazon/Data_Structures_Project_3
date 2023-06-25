@@ -1,9 +1,9 @@
 "use client"
 
 
-import { Button, Container, Divider, Grid, Stack } from '@mui/material'
+import { Button, Container, Divider, Grid, Link, Stack } from '@mui/material'
 import Image from "next/image"
-import Link from 'next/link'
+
 import Header from './components/Header'
 import { Navbar } from './components/Navbar'
 import React from 'react'
@@ -53,7 +53,8 @@ export const Home: NextPage = () => {
               <Grid item
                 sx={{ width: "60%" }}>
                 <Button sx={{ width: "100%" }} variant="contained">
-                  <Link href='/pages/search'>Get Started </Link>
+                  
+                  <Link color='GrayText' underline = 'hover' href='/pages/search'>Get Started </Link>
                 </Button>
               </Grid>
 

@@ -5,6 +5,7 @@ import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } fro
 import Link from 'next/link'
 import { useNotification } from '@/app/context/notification.context'
 import { RegisterValidation } from '@/app/helpers/validateForm'
+import { apiUser } from '@/app/api/user/user'
 
 //first we declare the type of object we want to extract from the form
 type NewUser = {
@@ -12,7 +13,6 @@ type NewUser = {
     lastName: string,
     email: string,
     password: string,
-    confirmPassword: string
 }
 
 
@@ -26,7 +26,6 @@ export default function Register() {
             lastName: "",
             email: "",
             password: "",
-            confirmPassword: ""
         }
     )
 //third, we use a function for getting information about the change event that ocurr within the form
@@ -41,14 +40,20 @@ export default function Register() {
     const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
-        RegisterValidation.validate(newUser).then(() => {
+        // RegisterValidation.validate(newUser).then(() => {
 
-            getSuccess(JSON.stringify(newUser))
+        //     getSuccess(JSON.stringify(newUser))
         
-        }). catch ((error) => {
+        // }). catch ((error) => {
         
+        //     getError(error.message)
+        
+        // })
+
+        apiUser.postUser(newUser.userName, newUser.lastName, newUser.email, newUser.password).then((response) => {
+            getSuccess(response.data)
+        }).catch((error) => {
             getError(error.message)
-        
         })
 
 
@@ -101,13 +106,6 @@ export default function Register() {
                                         name="password"
                                         type="password"
                                         label="Password"
-                                        onChange={newUserData}
-                                    />
-
-                                    <TextField fullWidth
-                                        name="confirmPassword"
-                                        type="password"
-                                        label="Confirm Password"
                                         onChange={newUserData}
                                     />
 
