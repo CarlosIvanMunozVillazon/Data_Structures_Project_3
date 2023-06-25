@@ -42,10 +42,10 @@ export default function WishLists() {
         e.preventDefault();
 
         console.log(getById.id ,productToDelete.titulo, productToDelete.precio, productToDelete.link,
-            productToDelete.tienda, productToDelete.marca, productToDelete.imagen)
+            productToDelete.tienda, productToDelete.imagen, productToDelete.marca)
 
         apiWishList.deleteWishListProduct(getById.id, productToDelete.titulo, productToDelete.precio, productToDelete.link,
-            productToDelete.tienda, productToDelete.marca, productToDelete.imagen).then((respo) => {
+            productToDelete.tienda, productToDelete.imagen, productToDelete.marca).then((respo) => {
                 console.log(respo.data)
             }).catch((error) => {
                 console.log(error.message)
