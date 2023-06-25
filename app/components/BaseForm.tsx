@@ -6,7 +6,7 @@ type BaseFormProps = {
     children?: React.ReactNode,
     children2: React.ReactNode,
     children3: React.ReactNode,
-    submit: (e : React.FormEvent<HTMLFormElement>) => void
+    submit: (e : React.FormEvent<HTMLFormElement>) => void 
 }
 
 export const BaseForm: React.FC<BaseFormProps> = ({ title, children, children2, children3, submit }: BaseFormProps) => {

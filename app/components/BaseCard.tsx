@@ -20,11 +20,11 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
 
     const handlePostWishList = () => {
 
-        apiWishList.postWishList(title, price, link, store, image, brand).then((response) => {
-            getSuccess(response.data)
-        }).catch((error) => {
-            getError((error.message))
-        })
+        // apiWishList.postWishList(title, price, link, store, image, brand).then((response) => {
+        //     getSuccess(response.data)
+        // }).catch((error) => {
+        //     getError((error.message))
+        // })
     }
         
     return <Card>

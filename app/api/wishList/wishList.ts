@@ -62,8 +62,9 @@ export const apiWishList = {
     price: number,
     link: string,
     store: string,
+    image: string,
     brand: string,
-    image: string
+    
   ) => {
     return instance.delete(`${endpoint.wishList}/${endpoint.product}`, {
       params: {
@@ -72,8 +73,9 @@ export const apiWishList = {
         precio: price,
         link: link,
         tienda: store,
-        marca: brand,
         image: image,
+        marca: brand,
+        
       },
     });
   },
