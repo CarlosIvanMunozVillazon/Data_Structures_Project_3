@@ -8,7 +8,6 @@ import { apiWishList } from "@/app/api/wishList/wishList";
 import { producto } from "../search/interface/product.interface";
 import { BaseForm } from "@/app/components/BaseForm";
 import { infoWishList, showInfoById, showInfoByName } from "@/app/types/wishListsModule/forms";
-import { WishList } from "@/app/components/wishList/wishList";
 import { useNotification } from "@/app/context/notification.context";
 import { MessageInterface } from "@/app/interface/Message.interface";
 
@@ -156,6 +155,48 @@ export default function WishLists() {
 
 
     //Get name by id
+    
+    const [wishListsTotal, setWistListsTotal] = React.useState<MessageInterface>({
+        message: ''
+    })
+   
+
+    const handleWishListsTotal = (e: React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.getAllIds().then((response) => {
+            setWistListsTotal(response.data)
+            getSuccess('Query completed')
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+
+    //updateWishList
+    const [wishListUpdate, setWishListUpdate] = React.useState<infoWishList>({
+        id : -2,
+        name : ''
+    })
+
+
+    const handleChgInfoWishList = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setWishListUpdate({
+            ...wishListUpdate, [e.target.name] : e.target.value
+        })
+    }
+
+    const handleWishListUpdate = (e : React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.putWishListName(wishListUpdate.id, wishListUpdate.name).then((response) => {
+            getSuccess(response.data)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+    //get all my wishLists
+
     const [getNamesById, setGetNamesById] = React.useState<showInfoById>({
         id : -1,
     })
@@ -180,15 +221,6 @@ export default function WishLists() {
             getError(error.message)
         })
     }
-
-
-    //updateWishList
-    const [wishListUpdate, setWishListUpdate] = React.useState<infoWishList>({
-        id : -2,
-        name : ''
-    })
-
-    
 
 
     return <>
@@ -260,24 +292,6 @@ export default function WishLists() {
                             }
                             submit={handleWishListDeletions}></BaseForm>
 
-
-
-                        {/* <BaseForm title='Delete wish list' children={
-                            <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
-                            </>
-                        }
-
-                            children2={
-                                <><Button variant='contained' type="submit"></Button></>
-                            }
-
-                            children3={
-                                <></>
-                            }
-                            submit={loadWishList}></BaseForm> */}
-
-
                         {/*IMPLEMENTADO**/}
                         <BaseForm title='Get ids by name' children={
                             <>
@@ -319,14 +333,11 @@ export default function WishLists() {
                             submit={handleNamesById}></BaseForm>
 
 
-{/*sdsdsdsdsdsddsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/}
-{/*sdsdsdsdsdsddsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/}
-{/*sdsdsdsdsdsddsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/}
-
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Update your wishlists' children={
                             <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
-                                <TextField name="newName" placeholder="New name" onChange={handleChgId1}></TextField>
+                                <TextField name="id" placeholder="Wish list id" onChange={handleChgInfoWishList}></TextField>
+                                <TextField name="name" placeholder="New name" onChange={handleChgInfoWishList}></TextField>
                             </>
                         }
 
@@ -337,23 +348,22 @@ export default function WishLists() {
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListUpdate}></BaseForm>
 
-
-
-                        <BaseForm title='Get all my wish lists' children={
+                        <BaseForm title='' children={
                             <>
+                            <Typography>Show all my wish lists</Typography>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Show</Button></>
                             }
 
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListsTotal}></BaseForm>
 
                     </Stack>
                 </Grid>

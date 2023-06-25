@@ -1,7 +1,8 @@
-import { Button, Card, CardActions, CardContent, Typography, Link, CardMedia } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Typography, Link, CardMedia, TextField } from "@mui/material";
 import React from "react";
 import { apiWishList } from "../api/wishList/wishList";
 import { useNotification } from "../context/notification.context";
+import { showInfoById } from "../types/wishListsModule/forms";
 
 
 type BaseCardProperties = {
@@ -9,31 +10,43 @@ type BaseCardProperties = {
     price: number,
     link: string,
     store: string,
-    image : string,
-    brand : string
-    
+    image: string,
+    brand: string,
+
 }
 
-export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, store, image, brand }: BaseCardProperties) => {
+export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, store, image, brand}: BaseCardProperties) => {
 
-    const {getSuccess, getError} = useNotification();
+    const { getSuccess, getError } = useNotification();
+
+    const [idProd , setIdProd] = React.useState<showInfoById>({
+        id : -100
+    })
 
     const handlePostWishList = () => {
 
-        // apiWishList.postWishList(title, price, link, store, image, brand).then((response) => {
-        //     getSuccess(response.data)
-        // }).catch((error) => {
-        //     getError((error.message))
-        // })
+        apiWishList.postWishListProduct(idProd.id ,title, price, link, store, image, brand).then((response) => {
+            getSuccess(response.data)
+        }).catch((error) => {
+            getError((error.message))
+        })
     }
-        
+    
+
+    const handleChgId = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setIdProd({
+            ...idProd, [e.target.name] : e.target.value
+        })
+    }
+
     return <Card>
 
         <CardMedia
 
-            component = 'img'
-            height = '200'
-            image = {image}
+            component='img'
+            height='200'
+            image={image}
 
         />
 
@@ -44,10 +57,11 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         </CardContent>
 
         <CardActions>
-            <Button variant="outlined"><Link underline = 'hover' color = 'black' href={link}>{store}</Link></Button>
-            <Button onClick={handlePostWishList} variant = 'contained'>Add to wish list</Button>    
+            <Button variant="outlined"><Link underline='hover' color='black' href={link}>{store}</Link></Button>
+            <TextField name = 'id' placeholder="id" onChange={handleChgId}></TextField>
+            <Button onClick={handlePostWishList} variant='contained'>Add to wish list</Button>
         </CardActions>
-        
+
     </Card>
 }
 
