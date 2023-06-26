@@ -1,5 +1,5 @@
 //In order to hit our base api URL we must import, the API instance files that handle any section of the API.
-import { instance } from "../base.api"
+import { instance, instance_local } from "../base.api"
 
 //This word hits the endpoint that directs to the product section of the API.
 const endpoint = {
@@ -21,7 +21,7 @@ const endpoint = {
 export const apiProducts = {
 
     searchProducts : function (productName : string) {
-        return instance.get(`${endpoint.product}`,{
+        return instance_local.get(`${endpoint.product}`,{
             params : {
                 keyProd : productName
             }
