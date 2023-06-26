@@ -421,10 +421,13 @@ export default function WishLists() {
                                     <BaseForm title='' children={
                                         <>
                                             <Stack direction="column">
-                                                <Typography>{response.titulo}</Typography>
-                                                <Typography>{response.precio}</Typography>
+                                                <Typography fontWeight = 'bold'>{response.titulo}</Typography>
+                                                <Typography>{response.precio.toLocaleString("es-CO", {
+                                                    style: "currency",
+                                                    currency: "COP",
+                                                })}</Typography>
                                                 <img src={response.imagen} width="250" height="250"/>
-                                                <Typography>{response.link}</Typography>
+                                                <Link href={response.link}><Typography>Visitar</Typography></Link>
                                                 <Typography>{response.marca}</Typography>
                                                 <Typography>{response.tienda}</Typography>
                                             </Stack>

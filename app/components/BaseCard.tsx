@@ -92,7 +92,10 @@ const [messageAgregarProdWish, setmessageAgregarProdWish] = React.useState<Messa
 
         <CardContent>
             <Typography variant="h5">{title}</Typography>
-            <Typography variant="h6">{price}</Typography>
+            <Typography variant="h6">{price.toLocaleString("es-CO", {
+                style: "currency",
+                currency: "COP",
+            })}</Typography>
             <Typography variant="h6">{brand}</Typography>
         </CardContent>
 

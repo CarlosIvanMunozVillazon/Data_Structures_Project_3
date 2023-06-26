@@ -40,18 +40,18 @@ export const apiWishList = {
     price: number,
     link: string,
     store: string,
-    brand: string,
-    image: string
-  ) => {
-    return instance.post(`${endpoint.wishList}/${endpoint.product}`, null, {
+    image: string,
+    brand: string
+    ) => {
+      return instance.post(`${endpoint.wishList}/${endpoint.product}`, null, {
       params: {
         wish_list_id: wishListId,
         titulo: title,
         precio: price,
         link: link,
         tienda: store,
-        marca: brand,
         imagen: image,
+        marca: brand
       },
     });
   },

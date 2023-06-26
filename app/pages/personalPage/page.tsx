@@ -8,6 +8,7 @@ import { BaseForm } from "@/app/components/BaseForm";
 
 import { apiUser } from "@/app/api/user/user";
 import { useNotification } from "@/app/context/notification.context";
+import { MessageInterface } from "@/app/interface/Message.interface";
 
 type NewUser = {
     userName: string,
@@ -29,13 +30,18 @@ export default function PersonalArea() {
         }
     )
 
-
+    const [messagePutPersonalInfo, setmessagePutPersonalInfo] = React.useState<MessageInterface>(
+        {
+            message : ''
+        }
+    )
 
     const handleUserPut = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         apiUser.putUser(userModified.userName, userModified.lastName, userModified.email, userModified.password).then((response) => {
-            getSuccess(response.data)
+            setmessagePutPersonalInfo(response.data)
+            getSuccess(messagePutPersonalInfo.message)
         }).catch((error) => {
             getError(error.message)
         })
@@ -51,13 +57,16 @@ export default function PersonalArea() {
         )
     }
 
-
+    const[messageDeleteUser, setmessageDeleteUser] = React.useState<MessageInterface>({
+        message : ''
+    })
 
     //Thre buttons
     const handleUserDeleteion = () => {
 
         apiUser.deleteUser().then((response) => {
-            getSuccess(response.data)
+            setmessageDeleteUser(response.data)
+            getSuccess(messageDeleteUser.message)
         }).catch((error) => {
             getError(error.message)
         })
@@ -72,10 +81,15 @@ export default function PersonalArea() {
         })
     }
 
+    const [messageLogOut, setmessageLogOut] = React.useState<MessageInterface>({
+        message: ''
+    })
+
     const handleUserLogout = () => {
 
         apiUser.putLogOut().then((response) => {
-            getSuccess(response.data)
+            setmessageLogOut(response.data)
+            getSuccess(messageLogOut.message)
         }).catch((error) => {
             getError(error.message)
         })
