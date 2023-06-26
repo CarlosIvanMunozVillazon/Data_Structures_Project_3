@@ -4,8 +4,7 @@ import React from "react";
 import { Box, Button, Container, Link, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import BasicLayout from "@/app/layouts/BasicLayout";
-import { apiWishList } from "@/app/api/wishList/wishList";
-import { producto } from "../search/interface/product.interface";
+
 import { apiOthers } from "@/app/api/otherss/others";
 import { BaseForm } from "@/app/components/BaseForm";
 
@@ -35,17 +34,7 @@ export default function Other() {
             name: ''
         }
     )
-
-    const handleBrandsSellers = () => {
-
-        apiOthers.getBrandsAndSellers().then((response) => {
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error.message)
-        })
-    }
-
-
+  
     return <>
 
         <BasicLayout>
@@ -102,26 +91,7 @@ export default function Other() {
 
                     </Grid>
 
-                    <Grid item sx={{ width: "100%" }}>
-
-                        <BaseForm title='Filter by seller' children={
-                            <>
-                                <TextField name='name' placeholder="seller name" onChange={handleChgSeller}></TextField>
-                            </>
-                        }
-
-                            children2={
-                                <Button type='submit' variant='contained'>
-                                    Filtrar
-                                </Button>
-                            }
-
-                            children3={
-                                <></>
-                            }
-                            submit={handleBrandsSellers}></BaseForm>
-
-                    </Grid>
+                    
 
                 </Grid>
             </Container>
