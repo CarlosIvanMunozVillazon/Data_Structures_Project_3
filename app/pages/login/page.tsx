@@ -8,6 +8,7 @@ import { useNotification } from '@/app/context/notification.context'
 import { LoginValidation } from '@/app/helpers/validateForm'
 import { apiUser } from '@/app/api/user/user'
 import { MessageInterface } from '@/app/interface/Message.interface'
+import { UserInterface } from './interface/user.interface'
 
 type LoginInformation = {
   email: string,
@@ -63,23 +64,21 @@ export default function Login() {
     message: ''
   })
 
+  const [user, setUser] = React.useState<UserInterface | null>(
+    {
+      id: 0,
+      nombre: '',
+      apellido: '',
+      email: '',
+      password: ''
+    }
+  )
+
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => { //aqui validamos con yup
     e.preventDefault();
-
-    // LoginValidation.validate(logIn).then(() => {
-
-    //   getSuccess(JSON.stringify(logIn)) //para que la notificacion imprima el objeto
-
-    // }
-    // ).catch((error) => {
-
-    //   getError(error.message) //por si tenemos datos no validos
-    // }
-    // )
-
     apiUser.getUserValidation(logIn.email, logIn.password).then((response) => {
-      setMensaje(response.data)
-      getSuccess(mensaje.message);
+      setUser(response.data)
+      console.log(response.data)
     }).catch((error) => {
       getError(error.message)
     })

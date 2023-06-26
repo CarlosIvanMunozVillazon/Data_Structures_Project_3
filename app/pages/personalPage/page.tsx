@@ -4,10 +4,8 @@ import React from "react";
 import { Box, Button, Container, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import BasicLayout from "@/app/layouts/BasicLayout";
-import { apiWishList } from "@/app/api/wishList/wishList";
-import { producto } from "../search/interface/product.interface";
 import { BaseForm } from "@/app/components/BaseForm";
-import { BaseCard } from "@/app/components/BaseCard";
+
 import { apiUser } from "@/app/api/user/user";
 import { useNotification } from "@/app/context/notification.context";
 
@@ -53,7 +51,7 @@ export default function PersonalArea() {
         )
     }
 
-    
+
 
     //Thre buttons
     const handleUserDeleteion = () => {
@@ -153,7 +151,7 @@ export default function PersonalArea() {
                             <Stack direction = 'column'
                             spacing={2}>
 
-                                <Button onClick={handleSessionStatus} variant = 'contained'>Check Status</Button>
+                                
                                 <Button onClick={handleUserLogout} variant = 'contained'>Log Out</Button>
                                 <Button onClick={handleUserDeleteion} variant = 'contained'>Delete Account</Button>
 
