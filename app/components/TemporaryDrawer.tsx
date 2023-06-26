@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import RecyclingIcon from '@mui/icons-material/Recycling';
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
+
+
 import LaptopIcon from '@mui/icons-material/Laptop';
-import CampaignIcon from '@mui/icons-material/Campaign';
+
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import { Grid, IconButton, Link, Stack, Typography } from '@mui/material';
 
@@ -50,18 +50,17 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, se
               </IconButton>
             </Link>
 
-
-            <Link color='gray' underline='hover' href='/pages/wishList'>
-              <IconButton>
-                <FavoriteIcon></FavoriteIcon>
-                <Typography variant="body1" textAlign="center">Wished List Manager</Typography>
-              </IconButton>
-            </Link>
-
             <Link color='gray' underline='hover' href='/pages/products'>
               <IconButton>
                 <LaptopIcon></LaptopIcon>
-                <Typography variant="body1" textAlign="center">My Results</Typography>
+                <Typography variant="body1" textAlign="center">Results</Typography>
+              </IconButton>
+            </Link>
+
+            <Link color='gray' underline='hover' href='/pages/wishLists'>
+              <IconButton>
+                <FavoriteIcon></FavoriteIcon>
+                <Typography variant="body1" textAlign="center">Wished List Manager</Typography>
               </IconButton>
             </Link>
 
@@ -71,6 +70,21 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, se
                 <Typography variant="body1" textAlign="center">Comparison Manager</Typography>
               </IconButton>
             </Link>
+
+            <Link color='gray' underline='hover' href='/pages/personalPage'>
+              <IconButton>
+                <LaptopIcon></LaptopIcon>
+                <Typography variant="body1" textAlign="center">My Area</Typography>
+              </IconButton>
+            </Link>
+
+            <Link color='gray' underline='hover' href='/pages/otherr'>
+              <IconButton>
+                <LaptopIcon></LaptopIcon>
+                <Typography variant="body1" textAlign="center">Other</Typography>
+              </IconButton>
+            </Link>
+
 
           </Stack>
 
