@@ -4,6 +4,7 @@ import { apiWishList } from "../api/wishList/wishList";
 import { useNotification } from "../context/notification.context";
 import { showInfoById } from "../types/wishListsModule/forms";
 import { apiComparisonList } from "../api/comparisonList/comparison";
+import { MessageIntInterface, MessageInterface } from "../interface/Message.interface";
 
 
 type BaseCardProperties = {
@@ -24,10 +25,17 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         id : -100
     })
 
+const [messageAgregarProdWish, setmessageAgregarProdWish] = React.useState<MessageInterface>(
+    {
+        message: ''
+    }
+);
+
     const handlePostWishList = () => {
 
         apiWishList.postWishListProduct(idProd.id ,title, price, link, store, image, brand).then((response) => {
-            getSuccess(response.data)
+            setmessageAgregarProdWish(response.data)
+            getSuccess(messageAgregarProdWish.message)
         }).catch((error) => {
             getError((error.message))
         })
@@ -47,10 +55,17 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         id : -100
     })
 
+    const [messageAgregarProdCompar, setmessageAgregarProdCompar] = React.useState<MessageInterface>(
+        {
+            message: ''
+        }
+    );
+
     const handlePostComparisonList = () => {
 
         apiComparisonList.postComparisonListProduct(idProd2.id ,title, price, link, store, image, brand).then((response) => {
-            getSuccess(response.data)
+            setmessageAgregarProdCompar(response.data)
+            getSuccess(messageAgregarProdCompar.message)
         }).catch((error) => {
             getError((error.message))
         })

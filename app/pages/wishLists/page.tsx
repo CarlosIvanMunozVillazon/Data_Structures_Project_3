@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import Image from "next/image"
 import { Box, Button, Container, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import BasicLayout from "@/app/layouts/BasicLayout";
