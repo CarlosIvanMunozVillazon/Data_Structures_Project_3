@@ -51,7 +51,7 @@ export const apiWishList = {
         link: link,
         tienda: store,
         marca: brand,
-        image: image,
+        imagen: image,
       },
     });
   },

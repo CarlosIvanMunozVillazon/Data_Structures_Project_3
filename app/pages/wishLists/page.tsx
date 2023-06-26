@@ -7,10 +7,18 @@ import BasicLayout from "@/app/layouts/BasicLayout";
 import { apiWishList } from "@/app/api/wishList/wishList";
 import { producto } from "../search/interface/product.interface";
 import { BaseForm } from "@/app/components/BaseForm";
-import { showInfoById } from "@/app/types/wishListsModule/forms";
-import { WishList } from "@/app/components/wishList/wishList";
+import { infoWishList, showInfoById, showInfoByName } from "@/app/types/wishListsModule/forms";
+import { useNotification } from "@/app/context/notification.context";
+import { MessageInterface } from "@/app/interface/Message.interface";
 
 export default function WishLists() {
+
+    //Global
+    const [responses, setResponses] = React.useState<MessageInterface>({
+        message: ''
+    })
+
+    const { getError, getSuccess } = useNotification();
 
     const [getById, setGetById] = React.useState<showInfoById>({
         id: -1
@@ -41,7 +49,7 @@ export default function WishLists() {
     const deleteFromWishList = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(getById.id ,productToDelete.titulo, productToDelete.precio, productToDelete.link,
+        console.log(getById.id, productToDelete.titulo, productToDelete.precio, productToDelete.link,
             productToDelete.tienda, productToDelete.imagen, productToDelete.marca)
 
         apiWishList.deleteWishListProduct(getById.id, productToDelete.titulo, productToDelete.precio, productToDelete.link,
@@ -51,6 +59,167 @@ export default function WishLists() {
                 console.log(error.message)
             })
 
+    }
+
+
+    //Other forms controlling
+    //Wish list creation.
+    const [parPostNewWishList, setParPostNewWishList] = React.useState<showInfoByName>({
+        name: ''
+    })
+
+    const handleChgWishListName1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setParPostNewWishList({
+            ...parPostNewWishList, [e.target.name]: e.target.value
+        })
+    }
+
+
+
+    const handleWishListCreations = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        apiWishList.postNewWishList(parPostNewWishList.name).then((response) => {
+            setResponses(response.data)
+            getSuccess(responses.message)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+    //Wish list deletion
+    const [parDelWishList, setParDeleteWishList] = React.useState<showInfoById>({
+        id: -1,
+    })
+
+
+    const handleChgId2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setParDeleteWishList({
+            ...parDelWishList, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleWishListDeletions = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        apiWishList.deleteWishList(parDelWishList.id).then((response) => {
+            setResponses(response.data)
+            getSuccess(responses.message)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+
+    //Max value product deletion:
+    const handleMaxProductDeletion = () => {
+
+        apiWishList.deleteWishListMax(getById.id).then((response) => {
+            setResponses(response.data)
+            getSuccess(responses.message)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+
+    //Get ids by name
+    const [getIdsByName, setGetIdsByName] = React.useState<showInfoByName>({
+        name: ''
+    })
+
+    const [wishListsId, setWistListsId] = React.useState<MessageInterface>({
+        message: ''
+    })
+
+    const handleChgName1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setGetIdsByName({
+            ...getIdsByName, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleGettingIdsByName = (e: React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.getWishListId(getIdsByName.name).then((response) => {
+            setWistListsId(response.data)
+            getSuccess('Query completed')
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+
+    //Get name by id
+    
+    const [wishListsTotal, setWistListsTotal] = React.useState<MessageInterface>({
+        message: ''
+    })
+   
+
+    const handleWishListsTotal = (e: React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.getAllIds().then((response) => {
+            setWistListsTotal(response.data)
+            getSuccess('Query completed')
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+
+    //updateWishList
+    const [wishListUpdate, setWishListUpdate] = React.useState<infoWishList>({
+        id : -2,
+        name : ''
+    })
+
+
+    const handleChgInfoWishList = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setWishListUpdate({
+            ...wishListUpdate, [e.target.name] : e.target.value
+        })
+    }
+
+    const handleWishListUpdate = (e : React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.putWishListName(wishListUpdate.id, wishListUpdate.name).then((response) => {
+            getSuccess(response.data)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+    //get all my wishLists
+
+    const [getNamesById, setGetNamesById] = React.useState<showInfoById>({
+        id : -1,
+    })
+
+    const [wishListsNames, setWistListsNames] = React.useState<MessageInterface>({
+        message: ''
+    })
+
+    const handleChgId3 = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setGetNamesById({
+            ...getNamesById, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleNamesById = (e: React.FormEvent<HTMLFormElement>) => {
+
+        apiWishList.getWishListName(getNamesById.id).then((response) => {
+            setWistListsNames(response.data)
+            getSuccess('Query completed')
+        }).catch((error) => {
+            getError(error.message)
+        })
     }
 
 
@@ -89,112 +258,112 @@ export default function WishLists() {
 
 
 
-
-
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Create new wish list' children={
                             <>
-                                <TextField name="name" placeholder="New wish list name" onChange={handleChgId1}></TextField>
+                                <TextField name="name" placeholder="New wish list name" onChange={handleChgWishListName1}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Create</Button></>
                             }
 
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListCreations}></BaseForm>
 
+
+
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Delete wish list' children={
                             <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
+                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId2}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Delete</Button></>
                             }
 
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListDeletions}></BaseForm>
 
-                        <BaseForm title='Delete wish list' children={
-                            <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
-                            </>
-                        }
-
-                            children2={
-                                <><Button variant='contained' type="submit"></Button></>
-                            }
-
-                            children3={
-                                <></>
-                            }
-                            submit={loadWishList}></BaseForm>
-
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Get ids by name' children={
                             <>
-                                <TextField name="name" placeholder="Wish list name" onChange={handleChgId1}></TextField>
+                                <TextField name="name" placeholder="Wish list name" onChange={handleChgName1}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Query</Button></>
                             }
 
                             children3={
-                                <></>
-                            }
-                            submit={loadWishList}></BaseForm>
+                                <>
 
+                                    <Typography>{wishListsId.message}</Typography>
+
+                                </>
+                            }
+                            submit={handleGettingIdsByName}></BaseForm>
+
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Get names by id' children={
                             <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
+                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId3}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Query</Button></>
                             }
 
                             children3={
-                                <></>
-                            }
-                            submit={loadWishList}></BaseForm>
+                                <>
 
+                                    <Typography>{wishListsNames.message}</Typography>
+
+                                </>
+                            }
+                            submit={handleNamesById}></BaseForm>
+
+
+                        {/*IMPLEMENTADO**/}
                         <BaseForm title='Update your wishlists' children={
                             <>
-                                <TextField name="id" placeholder="Wish list id" onChange={handleChgId1}></TextField>
-                                <TextField name="newName" placeholder="New name" onChange={handleChgId1}></TextField>
+                                <TextField name="id" placeholder="Wish list id" onChange={handleChgInfoWishList}></TextField>
+                                <TextField name="name" placeholder="New name" onChange={handleChgInfoWishList}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Update</Button></>
                             }
 
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListUpdate}></BaseForm>
 
-                        <BaseForm title='Get all my wish lists' children={
+                        <BaseForm title='' children={
                             <>
+                            <Typography>Show all my wish lists</Typography>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit"></Button></>
+                                <><Button variant='contained' type="submit">Show</Button></>
                             }
 
                             children3={
                                 <></>
                             }
-                            submit={loadWishList}></BaseForm>
+                            submit={handleWishListsTotal}></BaseForm>
 
                     </Stack>
                 </Grid>
@@ -202,9 +371,6 @@ export default function WishLists() {
 
                 <Grid item xs={8}>
 
-                    {/* <WishList productos={wishListProducts}>
-
-                    </WishList> */}
 
                     {wishListProducts !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
@@ -215,7 +381,7 @@ export default function WishLists() {
                             spacing={1}
                             sx={{ height: "100%", mt: 3, width: "100%" }}>
 
-                            <Button variant='contained'>Delete Max Product</Button>
+                            <Button variant='contained' onClick={handleMaxProductDeletion}>Delete Max Product</Button>
 
                             {
 
@@ -228,7 +394,7 @@ export default function WishLists() {
 
                                         children2={
                                             <>
-                                                <Button variant='contained' type="submit">Delete</Button>
+                                                <Button variant='contained' type="submit" sx={{ mr: 0.5 }}>Delete</Button>
                                                 <Button variant='contained' type="button" onClick={() => {
                                                     productToDelete = response
                                                 }}>Select</Button>
