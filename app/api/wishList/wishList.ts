@@ -88,7 +88,7 @@ export const apiWishList = {
   },
 
   getWishListName: (wishListId: number) => {
-    return instance.get(`${endpoint.wishList}/${endpoint.id}`, {
+    return instance.get(`${endpoint.wishList}/${endpoint.name}`, {
       params: {
         id: wishListId,
       },
@@ -104,7 +104,7 @@ export const apiWishList = {
   },
 
   putWishListName: (wishListId: number, wishListName: string) => {
-    return instance.put(`${endpoint.wishList}/${endpoint.id}`, null, {
+    return instance.put(`${endpoint.wishList}/${endpoint.name}`, null, {
       params: {
         id: wishListId,
         new_name: wishListName,

@@ -55,13 +55,13 @@ export const apiProducts = {
 
     filterProductsBySeller : function (sellerName : string) {
         return instance.get(`${endpoint.products}/${endpoint.productsFilter}/${endpoint.productsSellers}`, {params : {
-            seller : sellerName
+            sellers : sellerName
         }})
     },
 
     filterProductsByBrand : (brandName : string) => {
         return instance.get(`${endpoint.products}/${endpoint.productsFilter}/${endpoint.productBrand}`, {params : {
-            brand : brandName
+            brands : brandName
         }})
     }
 }

@@ -9,7 +9,8 @@ import { producto } from "../search/interface/product.interface";
 import { BaseForm } from "@/app/components/BaseForm";
 import { infoWishList, showInfoById, showInfoByName } from "@/app/types/wishListsModule/forms";
 import { useNotification } from "@/app/context/notification.context";
-import { MessageInterface } from "@/app/interface/Message.interface";
+import { MessageIntListInterface, MessageInterface } from "@/app/interface/Message.interface";
+import { BaseCard } from "@/app/components/BaseCard";
 
 export default function WishLists() {
 
@@ -144,7 +145,7 @@ export default function WishLists() {
     }
 
     const handleGettingIdsByName = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiWishList.getWishListId(getIdsByName.name).then((response) => {
             setWistListsId(response.data)
             getSuccess('Query completed')
@@ -156,13 +157,13 @@ export default function WishLists() {
 
     //Get name by id
     
-    const [wishListsTotal, setWistListsTotal] = React.useState<MessageInterface>({
-        message: ''
+    const [wishListsTotal, setWistListsTotal] = React.useState<MessageIntListInterface>({
+        message: []
     })
    
 
     const handleWishListsTotal = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiWishList.getAllIds().then((response) => {
             setWistListsTotal(response.data)
             getSuccess('Query completed')
@@ -186,10 +187,17 @@ export default function WishLists() {
         })
     }
 
-    const handleWishListUpdate = (e : React.FormEvent<HTMLFormElement>) => {
+    const [responseUpdateName, setresponseUpdateName] = React.useState<MessageInterface>(
+        {
+            message: ''
+        }
+    )
 
+    const handleWishListUpdate = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         apiWishList.putWishListName(wishListUpdate.id, wishListUpdate.name).then((response) => {
-            getSuccess(response.data)
+            setresponseUpdateName(response.data)
+            getSuccess(responseUpdateName.message)
         }).catch((error) => {
             getError(error.message)
         })
@@ -213,7 +221,7 @@ export default function WishLists() {
     }
 
     const handleNamesById = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiWishList.getWishListName(getNamesById.id).then((response) => {
             setWistListsNames(response.data)
             getSuccess('Query completed')
@@ -361,7 +369,30 @@ export default function WishLists() {
                             }
 
                             children3={
-                                <></>
+                                <>
+                                {wishListsTotal !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Stack component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="column"
+                                        spacing={1}
+                                        sx={{ height: "100%", mt: 3, width: "100%" }}>
+
+                                        {
+
+                                            wishListsTotal.message!.map((response) => (
+                                                <Typography>
+                                                    {response}
+                                                </Typography>
+                                            ))
+
+                                        }
+                                    </Stack>
+
+                                    ) : <p>No wish lists avaiblable</p>
+                                    }
+                                </>
                             }
                             submit={handleWishListsTotal}></BaseForm>
 
@@ -388,7 +419,14 @@ export default function WishLists() {
                                 wishListProducts!.map((response) => (
                                     <BaseForm title='' children={
                                         <>
-                                            <Typography>{response.titulo}</Typography>
+                                            <Stack direction="column">
+                                                <Typography>{response.titulo}</Typography>
+                                                <Typography>{response.precio}</Typography>
+                                                <img src={response.imagen} width="250" height="250"/>
+                                                <Typography>{response.link}</Typography>
+                                                <Typography>{response.marca}</Typography>
+                                                <Typography>{response.tienda}</Typography>
+                                            </Stack>
                                         </>
                                     }
 
@@ -411,7 +449,8 @@ export default function WishLists() {
                             }
                         </Stack>
 
-                    ) : <p>No wish lists avaiblable</p>}
+                        ) : <p>No wish lists avaiblable</p>
+                    }
 
                 </Grid>
             </Grid>
