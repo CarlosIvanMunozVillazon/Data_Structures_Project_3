@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useNotification } from '@/app/context/notification.context'
 import { LoginValidation } from '@/app/helpers/validateForm'
 import { apiUser } from '@/app/api/user/user'
+import { MessageInterface } from '@/app/interface/Message.interface'
 
 type LoginInformation = {
   email: string,
@@ -58,6 +59,9 @@ export default function Login() {
 
   const { getError, getSuccess } = useNotification();
 
+  const [mensaje, setMensaje] = React.useState<MessageInterface>({
+    message: ''
+  })
 
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => { //aqui validamos con yup
     e.preventDefault();
@@ -74,7 +78,8 @@ export default function Login() {
     // )
 
     apiUser.getUserValidation(logIn.email, logIn.password).then((response) => {
-      getSuccess(response.data);
+      setMensaje(response.data)
+      getSuccess(mensaje.message);
     }).catch((error) => {
       getError(error.message)
     })

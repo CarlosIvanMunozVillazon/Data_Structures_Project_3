@@ -53,6 +53,8 @@ export default function PersonalArea() {
         )
     }
 
+    
+
     //Thre buttons
     const handleUserDeleteion = () => {
 
