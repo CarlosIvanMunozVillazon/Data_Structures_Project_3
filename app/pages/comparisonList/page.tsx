@@ -9,8 +9,9 @@ import { apiComparisonList } from "@/app/api/comparisonList/comparison";
 import { BaseForm } from "@/app/components/BaseForm";
 import { useNotification } from "@/app/context/notification.context";
 
-import { MessageInterface } from "@/app/interface/Message.interface";
+import { MessageIntListInterface, MessageInterface } from "@/app/interface/Message.interface";
 import { showInfoById, showInfoByName, infoWishList } from "@/app/types/wishListsModule/forms";
+import { ComparisonInterface } from "./interface/Comparison.interface";
 
 export default function ComparisonList() {
 
@@ -25,7 +26,8 @@ export default function ComparisonList() {
         id: -1
     });
 
-    const [wishListProducts, setWishListProducts] = React.useState<producto[] | null>(null);
+    const [comparisonListProducts, setcomparisonListProducts] = React.useState<producto[] | null>(null);
+
 
     const handleChgId1 = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -38,7 +40,7 @@ export default function ComparisonList() {
         e.preventDefault();
         apiComparisonList.getComparisonList(getById.id).then((response) => {
             console.log(response.data)
-            setWishListProducts(response.data)
+            setcomparisonListProducts(response.data)
         }).catch((error) => {
             console.log(error.message)
         })
@@ -50,7 +52,7 @@ export default function ComparisonList() {
 
     let productToDelete: producto;
 
-    const deleteFromWishList = (e: React.FormEvent<HTMLFormElement>) => {
+    const deleteFromcomparisonList = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         console.log(getById.id, productToDelete.titulo, productToDelete.precio, productToDelete.link,
@@ -137,7 +139,7 @@ export default function ComparisonList() {
 
         apiComparisonList.getComparisonListOrdered(parGetInOrder.id).then((response) => {
             console.log(response.data)
-            setWishListProducts(response.data)
+            setcomparisonListProducts(response.data)
             // setResponses(response.data)
             // getSuccess(responses.message)
         }).catch((error) => {
@@ -163,9 +165,52 @@ export default function ComparisonList() {
 
         apiComparisonList.getComparisonListOrderInverted(parGetInOrderInverted.id).then((response) => {
             console.log(response.data)
-            setWishListProducts(response.data)
+            setcomparisonListProducts(response.data)
             // setResponses(response.data)
             // getSuccess(responses.message)
+        }).catch((error) => {
+            getError(error.message)
+        })
+    }
+
+    const [idCompareListToCompare, setidCompareListToCompare] = React.useState<showInfoById>({
+        id: -1,
+    })
+
+    const [resultComparison, setresultComparison] = React.useState<ComparisonInterface>({
+        best: {
+            titulo: "",
+            precio: 0,
+            link: "",
+            tienda: "",
+            imagen: "",
+            marca: ""
+        },
+        worst: {
+            titulo: "",
+            precio: 0,
+            link: "",
+            tienda: "",
+            imagen: "",
+            marca: ""
+        },
+        products_order: []
+    })
+
+    const handleChgIdCompare = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setidCompareListToCompare({
+            ...idCompareListToCompare, [e.target.name]: e.target.value
+        })
+    }
+
+    const handleCompare = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        apiComparisonList.getComparisonListComparison(idCompareListToCompare.id).then((response) => {
+            console.log(response.data[0])
+            setresultComparison(response.data)
         }).catch((error) => {
             getError(error.message)
         })
@@ -184,14 +229,14 @@ export default function ComparisonList() {
     })
 
     const handleChgName1 = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+        e.preventDefault()
         setGetIdsByName({
             ...getIdsByName, [e.target.name]: e.target.value
         })
     }
 
     const handleGettingIdsByName = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiComparisonList.getComparisonListID(getIdsByName.name).then((response) => {
             setWistListsId(response.data)
             getSuccess('Query completed')
@@ -203,13 +248,13 @@ export default function ComparisonList() {
 
     //Get name by id
 
-    const [wishListsTotal, setWistListsTotal] = React.useState<MessageInterface>({
-        message: ''
+    const [wishListsTotal, setWistListsTotal] = React.useState<MessageIntListInterface>({
+        message: []
     })
 
 
     const handleWishListsTotal = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiComparisonList.getComparisonListIDs().then((response) => {
             setWistListsTotal(response.data)
             getSuccess('Query completed')
@@ -253,14 +298,14 @@ export default function ComparisonList() {
     })
 
     const handleChgId3 = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+        e.preventDefault()
         setGetNamesById({
             ...getNamesById, [e.target.name]: e.target.value
         })
     }
 
     const handleNamesById = (e: React.FormEvent<HTMLFormElement>) => {
-
+        e.preventDefault()
         apiComparisonList.getComparisonListName(getNamesById.id).then((response) => {
             setWistListsNames(response.data)
             getSuccess('Query completed')
@@ -362,6 +407,25 @@ export default function ComparisonList() {
                             submit={handleGettingIdsByName}></BaseForm>
 
 
+                        {/*IMPLEMENTADO**/}
+                        <BaseForm title='Get names by id' children={
+                            <>
+                                <TextField name="id" placeholder="Comparison list id" onChange={handleChgId3}></TextField>
+                            </>
+                        }
+
+                            children2={
+                                <><Button variant='contained' type="submit">Query</Button></>
+                            }
+
+                            children3={
+                                <>
+
+                                    <Typography>{wishListsNames.message}</Typography>
+
+                                </>
+                            }
+                            submit={handleNamesById}></BaseForm>
 
 
                         <BaseForm title='Comparison List Order' children={
@@ -396,35 +460,101 @@ export default function ComparisonList() {
 
                             children3={
                                 <>
-
-                                    {/* <Typography>{wishListsId.message}</Typography> */}
-
                                 </>
                             }
                             submit={handleGetListInOrderInverted}></BaseForm>
 
 
-
-
-                        {/*IMPLEMENTADO**/}
-                        <BaseForm title='Get names by id' children={
+                        <BaseForm title='Compare Products' children={
                             <>
-                                <TextField name="id" placeholder="Comparison list id" onChange={handleChgId3}></TextField>
+                                <TextField name="id" placeholder="Comparison list id" onChange={handleChgIdCompare}></TextField>
                             </>
                         }
 
                             children2={
-                                <><Button variant='contained' type="submit">Query</Button></>
+                                <Button variant='contained' type="submit">View</Button>
                             }
 
                             children3={
                                 <>
+                                
+                                {resultComparison !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Typography>{wishListsNames.message}</Typography>
+                                    <Stack component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="column"
+                                        spacing={1}
+                                        sx={{ height: "100%", mt: 3, width: "100%" }}>
 
+                                        {
+                                            
+                                            <Stack direction="column">
+
+                                                <BaseForm title='' children={
+                                                    <>
+                                                        <Stack direction="column">
+                                                            <Typography>{resultComparison.best.titulo}</Typography>
+                                                            <Typography>{resultComparison.best.precio}</Typography>
+                                                            <img src={resultComparison.best.imagen} width="250" height="250"/>
+                                                            <Typography>{resultComparison.best.link}</Typography>
+                                                            <Typography>{resultComparison.best.marca}</Typography>
+                                                            <Typography>{resultComparison.best.tienda}</Typography>
+                                                        </Stack>
+                                                    </>
+                                                }
+
+                                                    children2={
+                                                        <>
+                                                            <Button variant='contained' type="submit" sx={{ mr: 0.5 }}>Delete</Button>
+                                                            <Button variant='contained' type="button" onClick={() => {
+                                                                productToDelete = resultComparison.best
+                                                            }}>Select</Button>
+
+                                                        </>
+                                                    }
+
+                                                    children3={
+                                                        <></>
+                                                    }
+                                                    submit={deleteFromcomparisonList}></BaseForm>
+
+                                                <BaseForm title='' children={
+                                                    <>
+                                                        <Stack direction="column">
+                                                            <Typography>{resultComparison.worst.titulo}</Typography>
+                                                            <Typography>{resultComparison.worst.precio}</Typography>
+                                                            <img src={resultComparison.worst.imagen} width="250" height="250"/>
+                                                            <Typography>{resultComparison.worst.link}</Typography>
+                                                            <Typography>{resultComparison.worst.marca}</Typography>
+                                                            <Typography>{resultComparison.worst.tienda}</Typography>
+                                                        </Stack>
+                                                    </>
+                                                }
+
+                                                    children2={
+                                                        <>
+                                                            <Button variant='contained' type="submit" sx={{ mr: 0.5 }}>Delete</Button>
+                                                            <Button variant='contained' type="button" onClick={() => {
+                                                                productToDelete = resultComparison.worst
+                                                            }}>Select</Button>
+
+                                                        </>
+                                                    }
+
+                                                    children3={
+                                                        <></>
+                                                    }
+                                                    submit={deleteFromcomparisonList}></BaseForm>
+                                        </Stack>
+                                        }
+                                    </Stack>
+
+                                    ) : <p>No wish lists avaiblable</p>
+                                    }
                                 </>
                             }
-                            submit={handleNamesById}></BaseForm>
+                            submit={handleCompare}></BaseForm>
 
 
                         {/*IMPLEMENTADO**/}
@@ -455,7 +585,30 @@ export default function ComparisonList() {
                             }
 
                             children3={
-                                <></>
+                                <>
+                                    {wishListsTotal !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Stack component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="column"
+                                        spacing={1}
+                                        sx={{ height: "100%", mt: 3, width: "100%" }}>
+
+                                        {
+
+                                            wishListsTotal.message!.map((response) => (
+                                                <Typography>
+                                                    {response}
+                                                </Typography>
+                                            ))
+
+                                        }
+                                    </Stack>
+
+                                    ) : <p>No wish lists avaiblable</p>
+                                    }
+                                </>
                             }
                             submit={handleWishListsTotal}></BaseForm>
 
@@ -466,45 +619,52 @@ export default function ComparisonList() {
                 <Grid item xs={8}>
 
 
-                    {wishListProducts !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                {comparisonListProducts !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                        <Stack component="div"
-                            justifyContent="center"
-                            alignItems="center"
-                            direction="column"
-                            spacing={1}
-                            sx={{ height: "100%", mt: 3, width: "100%" }}>
+                    <Stack component="div"
+                        justifyContent="center"
+                        alignItems="center"
+                        direction="column"
+                        spacing={1}
+                        sx={{ height: "100%", mt: 3, width: "100%" }}>
 
-                            {
+                        {
 
-                                wishListProducts!.map((response) => (
-                                    <BaseForm title='' children={
-                                        <>
+                            comparisonListProducts!.map((response) => (
+                                <BaseForm title='' children={
+                                    <>
+                                        <Stack direction="column">
                                             <Typography>{response.titulo}</Typography>
+                                            <Typography>{response.precio}</Typography>
+                                            <img src={response.imagen} width="250" height="250"/>
+                                            <Typography>{response.link}</Typography>
+                                            <Typography>{response.marca}</Typography>
+                                            <Typography>{response.tienda}</Typography>
+                                        </Stack>
+                                    </>
+                                }
+
+                                    children2={
+                                        <>
+                                            <Button variant='contained' type="submit" sx={{ mr: 0.5 }}>Delete</Button>
+                                            <Button variant='contained' type="button" onClick={() => {
+                                                productToDelete = response
+                                            }}>Select</Button>
+
                                         </>
                                     }
 
-                                        children2={
-                                            <>
-                                                <Button variant='contained' type="submit" sx={{ mr: 0.5 }}>Delete</Button>
-                                                <Button variant='contained' type="button" onClick={() => {
-                                                    productToDelete = response
-                                                }}>Select</Button>
+                                    children3={
+                                        <></>
+                                    }
+                                    submit={deleteFromcomparisonList}></BaseForm>
+                            ))
 
-                                            </>
-                                        }
+                        }
+                    </Stack>
 
-                                        children3={
-                                            <></>
-                                        }
-                                        submit={deleteFromWishList}></BaseForm>
-                                ))
-
-                            }
-                        </Stack>
-
-                    ) : <p>No comparison lists available</p>}
-
+                    ) : <p>No comparison lists avaiblable</p>
+                    }
                 </Grid>
             </Grid>
         </BasicLayout >
