@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useNotification } from '@/app/context/notification.context'
 import { RegisterValidation } from '@/app/helpers/validateForm'
 import { apiUser } from '@/app/api/user/user'
+import { MessageInterface } from '@/app/interface/Message.interface'
 
 //first we declare the type of object we want to extract from the form
 type NewUser = {
@@ -17,6 +18,10 @@ type NewUser = {
 
 
 export default function Register() {
+
+    const [mensaje, setMensaje] = React.useState<MessageInterface>({
+        message: ''
+      })
 
     const { getError, getSuccess } = useNotification();
 //second we declare our useState array where we are going to save the information
@@ -51,7 +56,8 @@ export default function Register() {
         // })
 
         apiUser.postUser(newUser.userName, newUser.lastName, newUser.email, newUser.password).then((response) => {
-            getSuccess(response.data)
+            setMensaje(response.data)
+            getSuccess(mensaje.message)
         }).catch((error) => {
             getError(error.message)
         })

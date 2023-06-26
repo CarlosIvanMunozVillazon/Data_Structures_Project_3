@@ -3,6 +3,7 @@ import React from "react";
 import { apiWishList } from "../api/wishList/wishList";
 import { useNotification } from "../context/notification.context";
 import { showInfoById } from "../types/wishListsModule/forms";
+import { apiComparisonList } from "../api/comparisonList/comparison";
 
 
 type BaseCardProperties = {
@@ -40,6 +41,30 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
         })
     }
 
+
+
+    const [idProd2 , setIdProd2] = React.useState<showInfoById>({
+        id : -100
+    })
+
+    const handlePostComparisonList = () => {
+
+        apiComparisonList.postComparisonListProduct(idProd2.id ,title, price, link, store, image, brand).then((response) => {
+            getSuccess(response.data)
+        }).catch((error) => {
+            getError((error.message))
+        })
+    }
+    
+
+    const handleChgId2 = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setIdProd2({
+            ...idProd2, [e.target.name] : e.target.value
+        })
+    }
+
+
     return <Card>
 
         <CardMedia
@@ -60,6 +85,8 @@ export const BaseCard: React.FC<BaseCardProperties> = ({ title, price, link, sto
             <Button variant="outlined"><Link underline='hover' color='black' href={link}>{store}</Link></Button>
             <TextField name = 'id' placeholder="id" onChange={handleChgId}></TextField>
             <Button onClick={handlePostWishList} variant='contained'>Add to wish list</Button>
+            <TextField name = 'id' placeholder="id" onChange={handleChgId2}></TextField>
+            <Button onClick={handlePostComparisonList} variant='contained'>Add comparisonList</Button>
         </CardActions>
 
     </Card>

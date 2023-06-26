@@ -26,7 +26,7 @@ export const apiComparisonList = {
     },
 
     postComparisonList : (nombre:string) => {
-        return instance.post(`${endpoint.comparisonList}`, {params : {
+        return instance.post(`${endpoint.comparisonList}`, null, {params : {
             name : nombre
         }})
     },
@@ -92,7 +92,7 @@ export const apiComparisonList = {
     },
 
     putComparisonListName : (id:number, nuevo_nombre:string) => {
-        return instance.put(`${endpoint.comparisonList}/${endpoint.name}`, {params: {
+        return instance.put(`${endpoint.comparisonList}/${endpoint.name}`, null, {params: {
             id_comparison : id,
             new_name : nuevo_nombre
         }})
