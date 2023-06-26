@@ -120,6 +120,10 @@ export default function Register() {
                                     <Link href="/pages/login">
                                         <Typography sx={{ color: "blue" }}>Already have an account?</Typography>
                                     </Link>
+
+                                    <Link href="/">
+                                        <Typography sx={{ color: "blue" }}>Home</Typography>
+                                    </Link>
                                 </Stack>
                             </Box>
                         </Paper>

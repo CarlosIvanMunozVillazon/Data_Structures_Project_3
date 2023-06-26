@@ -64,21 +64,18 @@ export default function Login() {
     message: ''
   })
 
-  const [user, setUser] = React.useState<UserInterface | null>(
+  const[messageLogIn, setmessageLogIn] = React.useState<MessageInterface>(
     {
-      id: 0,
-      nombre: '',
-      apellido: '',
-      email: '',
-      password: ''
+      message : ''
     }
   )
 
   const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => { //aqui validamos con yup
     e.preventDefault();
     apiUser.getUserValidation(logIn.email, logIn.password).then((response) => {
-      setUser(response.data)
-      console.log(response.data)
+      setmessageLogIn(response.data)
+      console.log(messageLogIn.message)
+      getSuccess(messageLogIn.message)
     }).catch((error) => {
       getError(error.message)
     })
@@ -119,6 +116,10 @@ export default function Login() {
 
                   <Link href="/pages/register">
                     <Typography sx={{ color: "blue" }}>Sign Up</Typography>
+                  </Link>
+
+                  <Link href="/pages/search">
+                    <Typography sx={{ color: "blue" }}>Home</Typography>
                   </Link>
                 </Stack>
               </Box>
