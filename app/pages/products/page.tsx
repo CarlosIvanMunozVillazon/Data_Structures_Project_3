@@ -109,6 +109,17 @@ export default function Products() {
         })
     }
 
+    const handleBrand = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        apiProducts.filterProductsByBrand(brandName.name).then((response) => {
+            setgottenProducts(response.data);
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error.message)
+        })
+    }
+
+
     const handleChgSeller = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         setSellerName({
@@ -116,18 +127,11 @@ export default function Products() {
         })
     }
 
-    const handleBrand = () => {
-
-        apiProducts.filterProductsByBrand(brandName.name).then((response) => {
-            setgottenProducts(response.data);
-        }).catch((error) => {
-            console.log(error.message)
-        })
-    }
-
-    const handleSeller = () => {
+    const handleSeller = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         apiProducts.filterProductsBySeller(sellerName.name).then((response) => {
             setgottenProducts(response.data);
+            console.log(response.data)
         }).catch((error) => {
             console.log(error.message)
         })
